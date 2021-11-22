@@ -18,13 +18,7 @@
                 </b:dropMenu>
                  <b:dropMenu icon-awesome="fa-user" value="Menu">
                     <b:navLink icon-awesome="fa-folder-open " value="Add Event" outcome="AddEvent.xhtml?faces-redirect=true"></b:navLink> 
-                    <b:navLink></b:navLink>
-                    <!--
-                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Name" outcome="EventByName.xhtml?faces-redirect=true"></b:navLink>
-                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Location" outcome="EventByLocation.xhtml?faces-redirect=true"></b:navLink>
-                    <b:navLink icon-awesome="fa-folder-open " value="Delete Event" outcome="DeleteEvent.xhtml?faces-redirect=true"></b:navLink>
-                    
-                    -->
+                    <b:navLink></b:navLink> 
                 </b:dropMenu>
                 
                 <h:form styleClass="navbar-form navbar-right">
@@ -48,12 +42,17 @@
                     <b:dataTableColumn value="#{event.getLocation()}" label="Location" />
                     <b:dataTableColumn value="#{event.getDescription()}" label="Description" />
                     <b:dataTableColumn value="#{event.getPrice()}"  label="Price (CHF)"/>
-                    <b:dataTableColumn value="#{event.getNbPlace()}"  label="Places"/>
+                    <b:dataTableColumn value="#{event.getNbPlace()}"  label="Places"/> 
                     <b:dataTableColumn>
-                    <b:commandButton value="Delete" iconAwesome="trash"
-                                     action="#{eventBean.DeleteEvent(event)}">
-                       <f:ajax execute="@this" render="@form" />
-                     </b:commandButton>
+                        <b:commandButton value="watch" icon="edit" iconAwesome="fa-eye"
+                                         action="#{eventBean.getOneEvent(event)}" >
+                        </b:commandButton>
+                    </b:dataTableColumn>
+                    <b:dataTableColumn>
+                        <b:commandButton value="Delete" iconAwesome="trash"
+                                         action="#{eventBean.DeleteEvent(event)}">
+                           <f:ajax execute="@this" render="@form" />
+                         </b:commandButton>
                    </b:dataTableColumn>
             </b:dataTable>  
             </b:form>    

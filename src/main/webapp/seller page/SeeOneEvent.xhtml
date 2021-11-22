@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Event Ticket Web App</title>
+        <b:navBar brand="Event Ticket" brandHref="#" style="background-color: rgb(245, 223, 77);">
+            <b:navbarLinks style="float:none;">
+                <b:navLink icon="home" value ="Home" href="SellerHomePage.xhtml?faces-redirect=true"></b:navLink>  
+                <b:dropMenu icon-awesome="fa-user" value="My profile">
+                    <b:navLink icon-awesome="fa-folder-open " value="My information" href="UserProfile.xhtml?faces-redirect=true"></b:navLink> 
+                    <b:navLink></b:navLink>
+                    <b:navLink icon-awesome="fa-sign-out " value="Log out"  outcome="/main page/Login.xhtml?faces-redirect=true"></b:navLink>
+                </b:dropMenu>
+                 <b:dropMenu icon-awesome="fa-user" value="Menu">
+                    <b:navLink icon-awesome="fa-folder-open " value="Add Event" outcome="AddEvent.xhtml?faces-redirect=true"></b:navLink> 
+                    <b:navLink></b:navLink>
+                    <!--
+                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Name" outcome="EventByName.xhtml?faces-redirect=true"></b:navLink>
+                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Location" outcome="EventByLocation.xhtml?faces-redirect=true"></b:navLink>
+                    <b:navLink icon-awesome="fa-folder-open " value="Delete Event" outcome="DeleteEvent.xhtml?faces-redirect=true"></b:navLink>
+                    -->
+                </b:dropMenu>
+                
+                <h:form styleClass="navbar-form navbar-right">
+                    <b:inputText placeholder="Search..."/>
+                    <b:commandButton action="#{eventBean.eventByEventName}"><b:iconAwesome value="fa-search" size="xs"/></b:commandButton> 
+                </h:form>   
+            </b:navbarLinks>
+        </b:navBar>
+    </h:head>
+  <h:body>   
+    <b:container style="padding-bottom:30px ">
+        <b:column span="1">
+            <b:row>
+                <img src="https://www.homewallmurals.co.uk/ekmps/shops/allwallpapers/images/avengers-infinity-war-61x91-5cm-movie-poster-31650-1-p.jpg" width="350"/>
+            </b:row>
+        </b:column>
+        <b:column span="2"></b:column>
+        <b:column span="5" style="padding-left: 100px;">
+            <div style="font-family:verdana; color:black; font-size:400%;text-align:left;">Avengers Infinity War</div>
+            <div style="font-family:verdana; color:gray; font-size:150%;text-align:left;">Date and time + location</div>
+            
+            <div style="padding: 35px 25px 35px 0px; font-family:verdana; color:black; font-size:100%;text-align:left;">As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment, the fate of Earth and existence has never been more uncertain</div>
+            <b:button icon="shopping-cart" value="Buy a ticket" href="BuyTicket.xhtml?faces-redirect=true" size="lg" look="success" style="font-family:verdana;float:left; "/>
+            <b:button icon="home" value="Back to Home" href="SellerHomePage.xhtml?faces-redirect=true" size="lg" look="warning" style="font-family:verdana;float:right;"/> 
+        </b:column>
+    </b:container>
+    </h:body>
+    <b:navBar brand="©2013-2018 TheCoder4Eu"  fixed="bottom" sticky="true" style="background-color: rgb(245, 223, 77);"/>
+</html>

@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:b="http://bootsfaces.net/ui"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Event Ticket Web App</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </h:head>
+    <h:body>
+         <b:navBar brand="Event Ticket" brandHref="#"  fixed="top"  inverse="true" style="background-color: rgb(245, 223, 77);">
+            <b:navbarLinks style="float:none;">
+                <b:navLink icon="home" value ="Home" href="SellerHomePage.xhtml?faces-redirect=true"></b:navLink>  
+                <b:dropMenu icon-awesome="fa-user" value="My profile">
+                    <b:navLink icon-awesome="fa-folder-open " value="My information" href="UserProfile.xhtml?faces-redirect=true"></b:navLink> 
+                    <b:navLink></b:navLink>
+                    <b:navLink icon-awesome="fa-sign-out " value="Log out" outcome="/main page/Login.xhtml?faces-redirect=true"></b:navLink>
+                </b:dropMenu>
+                 <b:dropMenu icon-awesome="fa-user" value="Menu">
+                   
+                    <b:navLink></b:navLink>
+                    <!--
+                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Name" href="EventByName.xhtml?faces-redirect=true"></b:navLink>
+                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Location" href="EventByLocation.xhtml?faces-redirect=true"></b:navLink>
+                    <b:navLink icon-awesome="fa-folder-open " value="Delete Event" href="DeleteEvent.xhtml?faces-redirect=true"></b:navLink>
+                    -->
+                </b:dropMenu>
+                    
+                
+                <h:form styleClass="navbar-form navbar-right">
+                        <b:inputText placeholder="Search..."/>
+                        <b:commandButton action="a"><b:iconAwesome value="fa-search" size="xs"/></b:commandButton> 
+                </h:form>   
+            </b:navbarLinks>
+        </b:navBar>
+        <b:row style="padding-top: 70px; padding-bottom: 30px">
+                <b:column col-md="3">
+                    <p><b:button id="demo" value="Back to Home" outcome="SellerHomePage.xhtml?faces-redirect=true" style="float: right;"/></p>    
+                </b:column>
+                <b:column col-md="6" style="padding-top:5px">
+                    <h2 align="center">Event Information</h2>
+                        <h:form>      
+                                <div class="form-group">
+                                    <b:inputText label="Event Name:" value='' fieldSize="sm"/>
+                                </div> 
+                                <div class="form-group">
+                                    <b:inputText label="Event Location:" value='' fieldSize="sm"/>
+                                </div> 
+                                <div class="form-group">
+                                    <b:inputText label="Ticket Price:" value='' fieldSize="sm"/>
+                                </div> 
+                                <div class="form-group">
+                                    <b:inputText label="Security requirement:" value='' fieldSize="sm" />
+                                </div>
+                                <div class="form-group">
+                                     <b:inputText label="Number of places:" value='' fieldSize="sm"/>
+                                 </div> 
+                                <div class="form-group">
+                                    <b:inputText label="Status"  value="#" fieldSize="sm"/> 
+                                </div>
+                            <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"/> 
+                            <b:commandButton action="SellerHomePage.xhtml?faces-redirect=true" value="Save" onclick="alert('Event Saved');" look="success" icon="chevron-right" iconAlign="right" style="float:right;" disabled="true"/>         
+                        </h:form>
+                 </b:column>
+                <b:column col-md="3"> 
+                    <img src="http://upload.wikimedia.org/wikipedia/commons/8/85/Image-New_Delhi_Lotus.jpg" alt="Avatar" style="width:200px; border-radius: 50%;"/>
+                </b:column>
+                
+            </b:row>
+        <b:navBar brand="©2013-2018 TheCoder4Eu" fixed="bottom" inverse="false"  sticky="true" style="background-color: rgb(245, 223, 77);"/>
+    </h:body>
+    
+</html>

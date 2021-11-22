@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:b="http://bootsfaces.net/ui"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Event Ticket Web App</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+          function main() {
+                var view = document.getElementById("view");
+                var demo = document.getElementById("demo");
+                demo.onclick = (e) => html2pdf(view);
+            }  
+        </script>
+    </h:head>
+    <h:body>
+         <b:navBar brand="Event Ticket" brandHref="#" inverse="true" style="background-color: rgb(245, 223, 77);">
+            <b:navbarLinks style="float:none;">
+                <b:navLink icon="home" value ="Home" outcome="SellerHomepage.xhtml?faces-redirect=true"></b:navLink>  
+                <b:dropMenu icon-awesome="fa-user" value="My profile">
+                    <b:navLink icon-awesome="fa-folder-open " value="My information" outcome="UserProfile.xhtml?faces-redirect=true"></b:navLink> 
+                    <b:navLink></b:navLink>
+                    <b:navLink icon-awesome="fa-sign-out " value="Log out" outcome="/main page/Login.xhtml?faces-redirect=true"></b:navLink>
+                </b:dropMenu>
+                 <b:dropMenu icon-awesome="fa-user" value="Menu">
+                    <b:navLink icon-awesome="fa-folder-open " value="Add Event" outcome="AddEvent.xhtml?faces-redirect=true"></b:navLink> 
+                    <b:navLink></b:navLink>
+                    <!--
+                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Name" href="/seller page/EventByName.xhtml?faces-redirect=true"></b:navLink>
+                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Location" href="/seller page/EventByLocation.xhtml?faces-redirect=true"></b:navLink>
+                    <b:navLink icon-awesome="fa-folder-open " value="Delete Event" href="/seller page/DeleteEvent.xhtml?faces-redirect=true"></b:navLink>
+                    -->
+                </b:dropMenu>
+                
+                <h:form styleClass="navbar-form navbar-right">
+                        <b:inputText placeholder="Search..."/>
+                        <b:commandButton action="a"><b:iconAwesome value="fa-search" size="xs"/></b:commandButton> 
+                </h:form>   
+            </b:navbarLinks>
+        </b:navBar>
+            <b:row>
+                <b:column col-md="3">
+                    <img src="https://www.homewallmurals.co.uk/ekmps/shops/allwallpapers/images/avengers-infinity-war-61x91-5cm-movie-poster-31650-1-p.jpg" width="100" height="100" style="float:right;border:round;"/>  
+                </b:column>
+                <b:column col-md="6" style="padding-top:20px">
+                    <h2 align="center">Event Name</h2>
+                        <h:form>
+                            <div id="view"> 
+                                <div class="form-group">
+                                    <b:inputText label="Event Location:" value='#' fieldSize="sm" readonly="true"/>
+                                </div> 
+                                <div class="form-group">
+                                    <b:inputText label="Ticket Price:" value='#' fieldSize="sm" readonly="true"/>
+                                </div> 
+                                <div class="form-group">
+                                    <b:inputText label="Security requirement:" value='#' fieldSize="sm" readonly="true"/>
+                                </div>
+                                <div class="form-group">
+                                     <b:inputText label="Buyer name:" value='#' fieldSize="sm"/>
+                                 </div> 
+                                <div class="form-group">
+                                    <b:inputText label="Number of Ticket:"  value="1" fieldSize="sm" readonly="true"/>
+                                 </div> 
+                            </div>     
+                            <b:commandButton action="BuyTicket.xhtml?faces-redirect=true" value="confirm" onclick="getElementById('demo').style.disabled='false';" look="success" icon="chevron-right" iconAlign="right"/>
+                            <b:commandButton action="/seller page/SellerHomePage.xhtml?faces-redirect=true" value="cancel" look="danger" icon="chevron-right" iconAlign="right" style="float:right;"/>
+                        </h:form>
+                </b:column>
+                <b:column col-md="3">
+                    <h2>Ticket PDF</h2>
+                        <p><b:button id="demo" value="Get pdf  »" onclick="main()" disabled='false'/></p>
+                </b:column>
+            </b:row>
+    </h:body>
+    <b:navBar brand="©2013-2018 TheCoder4Eu" inverse="false" fixed="bottom" sticky="true" style="background-color: rgb(245, 223, 77);"/>
+</html>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Event Ticket Web App</title> 
+        <b:navBar brand="Event Ticket" brandHref="#" inverse="true" style="background-color: rgb(245, 223, 77);">
+            <b:navbarLinks>
+                <b:navLink icon="home" href="Homepage.xhtml?faces-redirect=true"></b:navLink>  
+                <b:dropMenu value="My profile">
+                    <b:navLink value="My information" href="#"></b:navLink> 
+                    <b:navLink value="Reset Password" href="#"></b:navLink>
+                    <b:navLink></b:navLink>
+                    <b:navLink header="Nav header"></b:navLink>
+                    <b:navLink value="One more separated link" href="#"></b:navLink>
+                </b:dropMenu>
+                
+                <h:form styleClass= "navbar-form navbar-right"  role="search">
+                        <b:inputText placeholder="Search...">
+                            <f:facet name="append">
+                                <b:dropButton value="Search by">
+                                <b:navLink value="Name" href="#"></b:navLink>
+                                <b:navLink value="Location" href="#"></b:navLink>
+                                </b:dropButton>
+                            </f:facet>
+                        </b:inputText>
+                        <b:commandButton action="a"><b:iconAwesome value="fa-search" size="xs"/></b:commandButton>
+                        <b:button value="Log out" href="Login.xhtml?faces-redirect=true" size="sm" look="default"/>   
+                </h:form>    
+            </b:navbarLinks>
+        </b:navBar>
+    </h:head>
+    <h:body>
+        <b:jumbotron>
+            <b:container>
+                <h1 align="center">My profile</h1> 
+            </b:container>
+        </b:jumbotron>
+    </h:body>
+</html>

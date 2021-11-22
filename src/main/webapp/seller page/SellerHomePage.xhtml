@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Event Ticket Web App</title>
+    </h:head>
+    <h:body >
+        <b:navBar brand="Event Ticket" brandHref="#" fixed="top" inverse="true" style="background-color: rgb(245, 223, 77);">
+            <b:navbarLinks style="float:none;">
+                <b:navLink icon="home" value ="Home" outcome="SellerHomePage.xhtml?faces-redirect=true"></b:navLink>  
+                <b:dropMenu icon-awesome="fa-user" value="My profile">
+                    <b:navLink icon-awesome="fa-folder-open " value="My information" href="UserProfile.xhtml?faces-redirect=true"></b:navLink> 
+                    <b:navLink></b:navLink>
+                    <b:navLink icon-awesome="fa-sign-out " value="Log out" outcome="#{loginBean.logUserOut()}"></b:navLink>
+                </b:dropMenu>
+                 <b:dropMenu icon-awesome="fa-user" value="Menu">
+                    <b:navLink icon-awesome="fa-folder-open " value="Add Event" outcome="AddEvent.xhtml?faces-redirect=true"></b:navLink> 
+                    <b:navLink></b:navLink>
+                    <!--
+                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Name" outcome="EventByName.xhtml?faces-redirect=true"></b:navLink>
+                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Location" outcome="EventByLocation.xhtml?faces-redirect=true"></b:navLink>
+                    <b:navLink icon-awesome="fa-folder-open " value="Delete Event" outcome="DeleteEvent.xhtml?faces-redirect=true"></b:navLink>
+                    
+                    -->
+                </b:dropMenu>
+                
+                <h:form styleClass="navbar-form navbar-right">
+                    <b:inputText placeholder="Search..."/>
+                    <b:commandButton action="#"><b:iconAwesome value="fa-search" size="xs"/></b:commandButton> 
+                </h:form>   
+            </b:navbarLinks>
+        </b:navBar>
+        <b:jumbotron>
+            <b:container>
+                <b:row>
+                <h1 align="center">Welcome to the Ticket Office</h1> 
+                </b:row>  
+            </b:container>
+        </b:jumbotron>
+        <b:container>
+            <b:form>
+                <b:dataTable value="#{eventBean.listOfAllEvents}" var="event" excel="true" csv="true" pdf="true"  print="true" selected-items="rows">
+                    <b:dataTableColumn value="#{event.getName()}"  label="Name"/>
+                    <b:dataTableColumn value="#{event.getDate()}"  label="Image"/>
+                    <b:dataTableColumn value="#{event.getLocation()}" label="Location" />
+                    <b:dataTableColumn value="#{event.getDescription()}" label="Description" />
+                    <b:dataTableColumn value="#{event.getPrice()}"  label="Price (CHF)"/>
+                    <b:dataTableColumn value="#{event.getNbPlace()}"  label="Price (CHF)"/>
+            </b:dataTable>  
+            </b:form>    
+        </b:container>
+        <b:container style="padding-bottom: 30px;">
+            <b:column span="2">
+                <b:container>
+                    <b:row>
+                        <b:link outcome="SeeOneEvent.xhtml?faces-redirect=true">
+                            <img src="https://www.homewallmurals.co.uk/ekmps/shops/allwallpapers/images/avengers-infinity-war-61x91-5cm-movie-poster-31650-1-p.jpg" width="100" />
+                        </b:link>
+                    </b:row>
+                    <b:row>
+                        <div>Event name </div>
+                    </b:row>
+                </b:container>
+            </b:column>
+            <b:column span="2">
+                <b:container>
+                    <b:row>
+                        <b:link outcome="SeeOneEvent.xhtml?faces-redirect=true">
+                            <img src="http://upload.wikimedia.org/wikipedia/commons/8/85/Image-New_Delhi_Lotus.jpg" width="100" />
+                        </b:link>
+                    </b:row>
+                    <b:row>
+                        <div>Event name </div>
+                    </b:row>
+                </b:container>
+            </b:column>
+            <b:column span="2">
+                <b:container>
+                    <b:row>
+                        <b:link outcome="SeeOneEvent.xhtml?faces-redirect=true">
+                            <img src="http://upload.wikimedia.org/wikipedia/commons/8/85/Image-New_Delhi_Lotus.jpg" width="100" />
+                        </b:link>
+                    </b:row>
+                    <b:row>
+                        <div>Event name </div>
+                    </b:row>
+                </b:container>
+            </b:column>
+            <b:column span="2">
+                <b:container>
+                    <b:row>
+                        <b:link outcome="SeeOneEvent.xhtml?faces-redirect=true">
+                            <img src="http://upload.wikimedia.org/wikipedia/commons/8/85/Image-New_Delhi_Lotus.jpg" width="100" />
+                        </b:link>
+                    </b:row>
+                    <b:row>
+                        <div>Event name </div>
+                    </b:row>
+                </b:container>
+            </b:column>
+            <b:column span="2">
+                <b:container>
+                    <b:row>
+                        <b:link outcome="SeeOneEvent.xhtml?faces-redirect=true">
+                            <img src="http://upload.wikimedia.org/wikipedia/commons/8/85/Image-New_Delhi_Lotus.jpg" width="100" />
+                        </b:link>
+                    </b:row>
+                    <b:row>
+                        <div>Event name </div>
+                    </b:row>
+                </b:container>
+            </b:column>
+            <b:column span="2">
+                <b:container>
+                    <b:row>
+                        <b:link outcome="SeeOneEvent.xhtml?faces-redirect=true">
+                            <img src="http://upload.wikimedia.org/wikipedia/commons/8/85/Image-New_Delhi_Lotus.jpg" width="100" />
+                        </b:link>
+                    </b:row>
+                    <b:row>
+                        <div>Event name </div>
+                    </b:row>
+                </b:container>
+            </b:column>
+        </b:container>
+     </h:body>
+     <b:navBar brand="©2013-2018 TheCoder4Eu" fixed="bottom" sticky="true" style="background-color: rgb(245, 223, 77);"/>
+</html>
+

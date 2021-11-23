@@ -3,9 +3,9 @@ package ch.lab.unil.eventwebsite.beans;
 
 import ch.lab.unil.eventwebsite.Database.database;
 import ch.lab.unil.eventwebsite.models.Event;
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.io.Serializable;
 import java.util.ArrayList;
-import javax.annotation.ManagedBean;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -15,34 +15,19 @@ import javax.inject.Named;
  * @author valer
  */
 @Named(value = "eventBean")
-//@ManagedBean(value = "eventBean")
 @RequestScoped
 public class EventBeans implements Serializable  {
 
    
-    private String  eventname="";
-    /**
-     *
-     * @return
-     */
-
+    private Event targetEvent = null;
 
     public ArrayList<Event> getListOfAllEvents(){
             return database.getInstance().getAllEvent();
     }
-    /**
-     *
-     * @return
-     */
+   
     public ArrayList<Event> getListOfAvailableEventsInSold(){
         return database.getInstance().getEventInSold();
-}
-
-    /**
-     *
-     * @param location
-     * @return
-     */
+    }
 
     public ArrayList<Event> getListOfEventByLocation(String location){
         if(database.getInstance().getAllEventByLocation(location).size() > 0){
@@ -54,36 +39,20 @@ public class EventBeans implements Serializable  {
          
     }
 
-    /**
-     *
-     * @return
-     */
 
     public ArrayList<Event> getListOfAvailableEvents(){
         return database.getInstance().getAllAvailableEvent();
     }
-    /**
-     *
-     * @return
-     */
-
    // public Event  getEventByEventName(){
         //String eventName = "";
         //return db.RetriveEventByName(eventName);
    // }
-    /**
-     *
-     * @param e
-     */
 
     public void DeleteEvent(Event e){
         // delete e from list
        database.getInstance().DeleteEventByObj(e);
     }
 
-    /**
-     *@param
-     */
     public void DeleteAllExpiredEvent(){
         // delete e from list
         int itemDeleted = database.getInstance().DeleteAllExpiredEventObj();
@@ -94,34 +63,29 @@ public class EventBeans implements Serializable  {
         }
     }
 
-    /**
-     *@param
-     */
     public  void AddEvent(Event _e){
         database.getInstance().insertEvent(_e);
         
     }
     public String getOneEvent(Event _e){
         if(database.getInstance().getSpecifyEvent(_e)!= null){
+            setTargetEvent(_e);
           return "SeeOneEvent.xhtml?faces-redirect=true";
         }else{
                 return "SellerHomePage.xhtml?faces-redirect=true";
             }
         
     }
+    public void setTargetEvent(Event e){
+       this.targetEvent = e;
+    }
+     public Event getTargetEvent(){
+       return this.targetEvent;
+    }
    
-    
- 
-    /**
-     *
-     * @param e
-     */
     public void BuyTicket(){
       //
     }
-     /*
-    *
-    */
    
 
     

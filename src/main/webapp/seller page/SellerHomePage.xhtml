@@ -44,8 +44,9 @@
                     <b:dataTableColumn value="#{event.getPrice()}"  label="Price (CHF)"/>
                     <b:dataTableColumn value="#{event.getNbPlace()}"  label="Places"/> 
                     <b:dataTableColumn>
-                        <b:commandButton value="watch" iconAwesome="fa-eye"
-                                         action="#{eventBean.getOneEvent(event)}" >
+                        <b:commandButton value="watch" iconAwesome="fa-eye" 
+                                         action="#{eventBean.getOneEvent(event)}">
+                            <f:param id="eventname" name="paramName" value="#{event.getName()}"/>
                         </b:commandButton>
                     </b:dataTableColumn>
                     <b:dataTableColumn>

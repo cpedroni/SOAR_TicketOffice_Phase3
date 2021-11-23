@@ -94,8 +94,12 @@ public class Event {
     }
 
     
-    public ArrayList<String> getSecurity(){
-        return this.security;
+    public String getSecurity(){
+        String list = "";
+        for(String item : security){
+           list = list +" , "+ item;
+        }
+        return list;
     }
     public void setEventSecurity(ArrayList<String> security){
         this.security = security;

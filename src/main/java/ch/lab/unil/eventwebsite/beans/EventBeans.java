@@ -5,7 +5,8 @@ import ch.lab.unil.eventwebsite.Database.database;
 import ch.lab.unil.eventwebsite.models.Event;
 import java.io.Serializable;
 import java.util.ArrayList;
-import javax.enterprise.context.RequestScoped;
+import java.util.Date;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 
@@ -15,24 +16,32 @@ import javax.inject.Named;
  */
 @Named(value = "eventBean")
 //@ManagedBean(value = "eventBean")
-@RequestScoped
+@SessionScoped
 public class EventBeans implements Serializable  {
 
    
-    private String eventname="";
-    private Event targetEvent = null;
    
-
+    private Event targetEvent;
+    
     public String getOneEvent(Event _e){
-         setTargetEvent(database.getInstance().getSpecifyEvent(_e));
+        
+        //targetEvent = database.getInstance().getSpecifyEvent(_e);
+        setTargetEvent(database.getInstance().getSpecifyEvent(_e));
          if(database.getInstance().getSpecifyEvent(_e) != null){
-             return "/seller page/SeeOneEvent.xhtml?faces-redirect=true";
+             return "/seller page/SeeOneEvent.xhtml?param1="+targetEvent+"&faces-redirect=true";
          }else{
              return "/seller page/SellerHomePage.xhtml?faces-redirect=true";
          }
          
 
     }
+     public void setTargetEvent(Event e){
+        this.targetEvent = e;
+    }
+    public Event getTargetEvent(){
+        return this.targetEvent;
+    }
+    
     
     public ArrayList<Event> getListOfAllEvents(){
             return database.getInstance().getAllEvent();
@@ -91,20 +100,22 @@ public class EventBeans implements Serializable  {
     }
    
     
-    public void setTargetEvent(Event e){
-        this.targetEvent = e;
+   
+    
+    public String buyTicket(Event target){ 
+        return "/seller page/BuyTicket.xhtml?param1="+target+"&faces-redirect=true";
     }
-    public Event getTargetEvent(){
-        return this.targetEvent;
+    public void confirmticket(Event target){
+        boolean result = database.getInstance().updatePlacesNumber(target);
+        if(result == true){
+            // return positive message to user
+        }else{
+            // return negative messages
+        }
+
+       
     }
     
-    public void buyTicket(){
-      //
-    }
-     /*
-    *
-    */
-   
 
     
 

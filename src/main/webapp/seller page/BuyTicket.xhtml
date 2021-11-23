@@ -23,16 +23,11 @@
                 <b:dropMenu icon-awesome="fa-user" value="My profile">
                     <b:navLink icon-awesome="fa-folder-open " value="My information" outcome="UserProfile.xhtml?faces-redirect=true"></b:navLink> 
                     <b:navLink></b:navLink>
-                    <b:navLink icon-awesome="fa-sign-out " value="Log out" outcome="/main page/Login.xhtml?faces-redirect=true"></b:navLink>
+                    <b:navLink icon-awesome="fa-sign-out " value="Log out" outcome="#{loginBean.logUserOut()}"></b:navLink>
                 </b:dropMenu>
                  <b:dropMenu icon-awesome="fa-user" value="Menu">
                     <b:navLink icon-awesome="fa-folder-open " value="Add Event" outcome="AddEvent.xhtml?faces-redirect=true"></b:navLink> 
                     <b:navLink></b:navLink>
-                    <!--
-                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Name" href="/seller page/EventByName.xhtml?faces-redirect=true"></b:navLink>
-                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Location" href="/seller page/EventByLocation.xhtml?faces-redirect=true"></b:navLink>
-                    <b:navLink icon-awesome="fa-folder-open " value="Delete Event" href="/seller page/DeleteEvent.xhtml?faces-redirect=true"></b:navLink>
-                    -->
                 </b:dropMenu>
                 
                 <h:form styleClass="navbar-form navbar-right">
@@ -46,26 +41,26 @@
                     <img src="https://www.homewallmurals.co.uk/ekmps/shops/allwallpapers/images/avengers-infinity-war-61x91-5cm-movie-poster-31650-1-p.jpg" width="100" height="100" style="float:right;border:round;"/>  
                 </b:column>
                 <b:column col-md="6" style="padding-top:20px">
-                    <h2 align="center">Event Name</h2>
+                    <h2 align="center">#{eventBean.targetEvent.getName()}</h2>
                         <h:form>
                             <div id="view"> 
                                 <div class="form-group">
-                                    <b:inputText label="Event Location:" value='#' fieldSize="sm" readonly="true"/>
+                                    <b:inputText label="Event Location:" value="#{eventBean.targetEvent.getLocation()}" fieldSize="sm" readonly="true"/>
                                 </div> 
                                 <div class="form-group">
-                                    <b:inputText label="Ticket Price:" value='#' fieldSize="sm" readonly="true"/>
+                                    <b:inputText label="Ticket Price:" value="#{eventBean.targetEvent.getPrice()} CHF" fieldSize="sm" readonly="true"/>
                                 </div> 
                                 <div class="form-group">
-                                    <b:inputText label="Security requirement:" value='#' fieldSize="sm" readonly="true"/>
+                                    <b:inputText label="Security requirement:" value="#{eventBean.targetEvent.getSecurity()}" fieldSize="sm" readonly="true"/>
                                 </div>
                                 <div class="form-group">
-                                     <b:inputText label="Buyer name:" value='#' fieldSize="sm"/>
+                                    <b:inputText label="Buyer name:"  placeholder="Enter Customer Name..." fieldSize="sm" required="true"/>
                                  </div> 
                                 <div class="form-group">
                                     <b:inputText label="Number of Ticket:"  value="1" fieldSize="sm" readonly="true"/>
                                  </div> 
                             </div>     
-                            <b:commandButton action="BuyTicket.xhtml?faces-redirect=true" value="confirm" onclick="getElementById('demo').style.disabled='false';" look="success" icon="chevron-right" iconAlign="right"/>
+                            <b:commandButton action="#{eventBean.confirmticket(eventBean.targetEvent)}" value="confirm" onclick="document.getElementById('demo').style.disabled='false';" look="success" icon="chevron-right" iconAlign="right"/>
                             <b:commandButton action="/seller page/SellerHomePage.xhtml?faces-redirect=true" value="cancel" look="danger" icon="chevron-right" iconAlign="right" style="float:right;"/>
                         </h:form>
                 </b:column>

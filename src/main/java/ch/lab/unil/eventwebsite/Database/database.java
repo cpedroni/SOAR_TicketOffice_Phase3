@@ -489,19 +489,17 @@ public class database {
     }
             
     
-    /**
-    public Event RetriveEventByName(String eventName) {
-   
- 
-
-        if(!eventName.equals("") && eventName.length() > 0){
-           for( Event e : this.eventList){
-                if(e.getName().equalsIgnoreCase(eventName))
-                   return e;
-           }
+   public Event getSpecifyEvent(Event e){
+       int count = 0;
+       for(Event event:eventList)
+        {
+            if(event == e) { 
+                count++;
+            }
         }
-    }
-    **/
+       if(count == 1){return e;}
+       else{return null;}
+   }
     
     /**
      *

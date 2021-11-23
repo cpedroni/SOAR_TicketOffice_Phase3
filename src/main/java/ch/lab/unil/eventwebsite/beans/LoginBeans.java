@@ -111,7 +111,7 @@ public class LoginBeans implements Serializable {
         User user = db.getUserByUserEmail(_email);
         if(user != null){
             if(password.length()> 0){
-                if(db.UpdateUserList(user, password) == true){
+                if(db.updateUserList(user, password) == true){
                     //
                 }
             }

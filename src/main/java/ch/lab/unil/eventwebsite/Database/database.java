@@ -96,7 +96,7 @@ public class database {
        },
        new ArrayList<String>(){
            {
-               add("to come");
+               add("To come");
            }
        }
   ));
@@ -135,7 +135,7 @@ public class database {
        },
        new ArrayList<String>(){
            {
-               add("to come");
+               add("To come");
            }
        }
   ));

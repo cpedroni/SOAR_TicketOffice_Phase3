@@ -76,17 +76,17 @@ public class EventBeans implements Serializable  {
      * @param e
      */
 
-    public void deleteEvent(Event e){
+    public void DeleteEvent(Event e){
         // delete e from list
-       database.getInstance().deleteEventByObj(e);
+       database.getInstance().DeleteEventByObj(e);
     }
 
     /**
      *@param
      */
-    public void deleteAllExpiredEvent(){
+    public void DeleteAllExpiredEvent(){
         // delete e from list
-        int itemDeleted = database.getInstance().deleteAllExpiredEventObj();
+        int itemDeleted = database.getInstance().DeleteAllExpiredEventObj();
         if(itemDeleted == 0){
             // return a negative message
         }else{
@@ -97,7 +97,7 @@ public class EventBeans implements Serializable  {
     /**
      *@param
      */
-    public  void addEvent( Event _e){
+    public  void AddEvent( Event _e){
         database.getInstance().insertEvent(_e);
         
     }
@@ -108,7 +108,7 @@ public class EventBeans implements Serializable  {
      *
      * @param e
      */
-    public void buyTicket(){
+    public void BuyTicket(){
       //
     }
      /*

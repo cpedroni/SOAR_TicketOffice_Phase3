@@ -16,9 +16,15 @@
                     <b:navLink></b:navLink>
                     <b:navLink icon-awesome="fa-sign-out " value="Log out" outcome="#{loginBean.logUserOut()}"></b:navLink>
                 </b:dropMenu>
-                 <b:dropMenu icon-awesome="fa-archive" value="Menu">
+                 <b:dropMenu icon-awesome="fa-user" value="Menu">
                     <b:navLink icon-awesome="fa-folder-open " value="Add Event" outcome="AddEvent.xhtml?faces-redirect=true"></b:navLink> 
-                    <b:navLink></b:navLink> 
+                    <b:navLink></b:navLink>
+                    <!--
+                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Name" outcome="EventByName.xhtml?faces-redirect=true"></b:navLink>
+                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Location" outcome="EventByLocation.xhtml?faces-redirect=true"></b:navLink>
+                    <b:navLink icon-awesome="fa-folder-open " value="Delete Event" outcome="DeleteEvent.xhtml?faces-redirect=true"></b:navLink>
+                    
+                    -->
                 </b:dropMenu>
                 
                 <h:form styleClass="navbar-form navbar-right">
@@ -38,24 +44,87 @@
             <b:form>
                 <b:dataTable value="#{eventBean.listOfAllEvents}" var="event" excel="true" csv="true" pdf="true"  print="true" selected-items="rows">
                     <b:dataTableColumn value="#{event.getName()}"  label="Name"/>
-                    <b:dataTableColumn value="#{event.getDate()}"  label="Date"/>
+                    <b:dataTableColumn value="#{event.getDate()}"  label="Image"/>
                     <b:dataTableColumn value="#{event.getLocation()}" label="Location" />
                     <b:dataTableColumn value="#{event.getDescription()}" label="Description" />
                     <b:dataTableColumn value="#{event.getPrice()}"  label="Price (CHF)"/>
-                    <b:dataTableColumn value="#{event.getNbPlace()}"  label="Places"/> 
-                    <b:dataTableColumn>
-                        <b:commandButton value="watch" iconAwesome="fa-eye"
-                                         action="#{eventBean.getOneEvent(event)}" >
-                        </b:commandButton>
-                    </b:dataTableColumn>
-                    <b:dataTableColumn>
-                        <b:commandButton value="Delete" iconAwesome="trash"
-                                         action="#{eventBean.DeleteEvent(event)}">
-                           <f:ajax execute="@this" render="@form" />
-                         </b:commandButton>
-                   </b:dataTableColumn>
-                </b:dataTable>  
+                    <b:dataTableColumn value="#{event.getNbPlace()}"  label="Price (CHF)"/>
+            </b:dataTable>  
             </b:form>    
+        </b:container>
+        <b:container style="padding-bottom: 30px;">
+            <b:column span="2">
+                <b:container>
+                    <b:row>
+                        <b:link outcome="SeeOneEvent.xhtml?faces-redirect=true">
+                            <img src="https://www.homewallmurals.co.uk/ekmps/shops/allwallpapers/images/avengers-infinity-war-61x91-5cm-movie-poster-31650-1-p.jpg" width="100" />
+                        </b:link>
+                    </b:row>
+                    <b:row>
+                        <div>Event name </div>
+                    </b:row>
+                </b:container>
+            </b:column>
+            <b:column span="2">
+                <b:container>
+                    <b:row>
+                        <b:link outcome="SeeOneEvent.xhtml?faces-redirect=true">
+                            <img src="http://upload.wikimedia.org/wikipedia/commons/8/85/Image-New_Delhi_Lotus.jpg" width="100" />
+                        </b:link>
+                    </b:row>
+                    <b:row>
+                        <div>Event name </div>
+                    </b:row>
+                </b:container>
+            </b:column>
+            <b:column span="2">
+                <b:container>
+                    <b:row>
+                        <b:link outcome="SeeOneEvent.xhtml?faces-redirect=true">
+                            <img src="http://upload.wikimedia.org/wikipedia/commons/8/85/Image-New_Delhi_Lotus.jpg" width="100" />
+                        </b:link>
+                    </b:row>
+                    <b:row>
+                        <div>Event name </div>
+                    </b:row>
+                </b:container>
+            </b:column>
+            <b:column span="2">
+                <b:container>
+                    <b:row>
+                        <b:link outcome="SeeOneEvent.xhtml?faces-redirect=true">
+                            <img src="http://upload.wikimedia.org/wikipedia/commons/8/85/Image-New_Delhi_Lotus.jpg" width="100" />
+                        </b:link>
+                    </b:row>
+                    <b:row>
+                        <div>Event name </div>
+                    </b:row>
+                </b:container>
+            </b:column>
+            <b:column span="2">
+                <b:container>
+                    <b:row>
+                        <b:link outcome="SeeOneEvent.xhtml?faces-redirect=true">
+                            <img src="http://upload.wikimedia.org/wikipedia/commons/8/85/Image-New_Delhi_Lotus.jpg" width="100" />
+                        </b:link>
+                    </b:row>
+                    <b:row>
+                        <div>Event name </div>
+                    </b:row>
+                </b:container>
+            </b:column>
+            <b:column span="2">
+                <b:container>
+                    <b:row>
+                        <b:link outcome="SeeOneEvent.xhtml?faces-redirect=true">
+                            <img src="http://upload.wikimedia.org/wikipedia/commons/8/85/Image-New_Delhi_Lotus.jpg" width="100" />
+                        </b:link>
+                    </b:row>
+                    <b:row>
+                        <div>Event name </div>
+                    </b:row>
+                </b:container>
+            </b:column>
         </b:container>
      </h:body>
      <b:navBar brand="©2013-2018 TheCoder4Eu" fixed="bottom" sticky="true" style="background-color: rgb(245, 223, 77);"/>

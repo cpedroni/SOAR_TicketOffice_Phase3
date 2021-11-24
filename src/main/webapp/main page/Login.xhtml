@@ -32,12 +32,12 @@ and open the template in the editor.
                 <b:inputText id="password" placeholder="Password" type="password" value="#{loginBean.password}">
                     <f:facet name="prepend">
                         <b:iconAwesome name="key" />
-                    </f:facet>
+                        </f:facet>
                 </b:inputText>
                 <b:commandButton  action="#{loginBean.logUserIn()}" look="primary" value="Log In" icon="log-in" size="lg" />
                 <b:commandButton  action="Signup.xhtml?faces-redirect=true" look="warning" value="Sign Up" icon="log-in" size="lg" style="float: right;"/>
                 <div style="padding-top:15px; padding-left:90px;">
-                <b:commandButton  action="RestPassword.xhtml?faces-redirect=true" value="Reset Password" size="lg" style="float: right;"/>
+                <b:commandLink action="RestPassword.xhtml?faces-redirect=true" value="Reset Password" style="float: right;"/>
                 </div>
             </h:form>
         </b:container>

@@ -74,7 +74,7 @@ public class RegisterBeans implements Serializable {
      * this method create a new user only if he does not exist on the database otherwise it generate an  exception
      * @param db
     **/
-    public static void createNewUser(database db) {
+    public static String createNewUser(database db) {
         // db = getDb();
         try {
             if (!checkIfEmailExist(getEmail()) && !checkIfUsernameExist(getUsername())) {
@@ -83,6 +83,7 @@ public class RegisterBeans implements Serializable {
         } catch (AlreadyExistException | DoesNotExistExeeption ex) {
             System.out.println(ex.getMessage());
         }
+        return "/main page/Login.xhtml?faces-redirect=true";
     }
     
     /**

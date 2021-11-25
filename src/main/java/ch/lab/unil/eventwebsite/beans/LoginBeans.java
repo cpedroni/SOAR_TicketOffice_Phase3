@@ -106,7 +106,7 @@ public class LoginBeans implements Serializable {
      * @param _email
      * @param db
      */
-    public void resetPassword(String _email,database db){
+    public String resetPassword(String _email,database db){
         //database db = new database();
         User user = db.getUserByUserEmail(_email);
         if(user != null){
@@ -116,8 +116,7 @@ public class LoginBeans implements Serializable {
                 }
             }
         }
-
+        return "/main page/Login.xhtml?faces-redirect=true";
     }
-     
 }
 

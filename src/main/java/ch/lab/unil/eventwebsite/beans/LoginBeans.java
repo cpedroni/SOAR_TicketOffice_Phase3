@@ -84,9 +84,11 @@ public class LoginBeans implements Serializable {
     public void setCurrentUser(User _currentUser) {
         this.currentUser = _currentUser;
     }
-   
-    public void resetPassword(String _email,database db){
-        //database db = new database();
+
+    public void resetPassword(String _email){
+
+        //
+        /**
         User user = db.getUserByUserEmail(_email);
         if(user != null){
             if(password.length()> 0){
@@ -95,8 +97,9 @@ public class LoginBeans implements Serializable {
                 }
             }
         }
-
+        */
     }
-     
+   
+
 }
 

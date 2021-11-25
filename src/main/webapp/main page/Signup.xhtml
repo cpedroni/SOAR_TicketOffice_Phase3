@@ -35,7 +35,7 @@
                      <b:radiobutton value="#{registerBean.getUserRole()}" itemLabel="Seller"/>
                      <b:radiobutton value="#{registerBean.getUserRole()}" itemLabel="Customer"/>
                  </b:panelGrid>
-                 <b:commandButton  action="#{registerBean.createNewUser()}" look="warning" value="Sign up" icon="log-in" size="lg"/>
+                 <b:commandButton  action="#{registerBean.createNewUser(db)}" look="warning" value="Sign up" onclick="alert('You have created your user profile');" icon="log-in" size="lg"/>
          </h:form>
         </b:container>
       </h:body>

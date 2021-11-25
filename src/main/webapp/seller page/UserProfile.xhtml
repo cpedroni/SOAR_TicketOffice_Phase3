@@ -32,21 +32,21 @@
                     <h2 align="center"> My Information</h2>
 
                                 <div class="form-group">
-                                    <p>FirstName : test</p>
+                                    <p>FirstName : #{loginBean.currentUser.firstname}</p>
                                 </div> 
                                  <div class="form-group">
-                                    <p>LastName: test</p>
+                                     <p>LastName: #{loginBean.currentUser.lastname}</p>
                                 </div>
                                 <div class="form-group">
-                                    <p>Username: test</p>
+                                    <p>Username: #{loginBean.currentUser.username}</p>
                                 </div>
                                 <div class="form-group">
-                                   <p>Email: test@test.com</p>
+                                    <p>Email: #{loginBean.currentUser.email}</p>
                                 </div>
                                 <div class="form-group">
-                                   <p>Phone Number: (+41) 7987677867</p>
+                                    <p>Phone Number: #{loginBean.currentUser.phonenumber}</p>
                                 </div> <div class="form-group">
-                                   <p> Number of ticket sold: 0 </p>
+                                    <p> Number of ticket sold: #{loginBean.currentUser.saleTicketList} </p>
                                 </div> 
                     
                 </b:column>

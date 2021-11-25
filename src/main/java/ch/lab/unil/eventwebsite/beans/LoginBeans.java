@@ -3,32 +3,24 @@ import ch.lab.unil.eventwebsite.Exceptions.DoesNotExistExeeption;
 import ch.lab.unil.eventwebsite.Database.database;
 import ch.lab.unil.eventwebsite.models.User;
 import java.io.Serializable;
-import javax.enterprise.context.RequestScoped;
+//import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-/**
+/** 
  *
  * @author valer
  */
 @Named(value = "loginBean")
-@RequestScoped
+@SessionScoped
 public class LoginBeans implements Serializable {
     
     private String username="";
     private String password="";
-    private static User currentUser ;
+    private User currentUser;
     
    // defaut constructor
-
-    /**
-     *@param
-     */
-    public LoginBeans(){
-        username = "";
-        password = "";
-        currentUser = new User();
-    }
+    
     public String logUserIn() {
        
             database db = database.getInstance();
@@ -73,39 +65,26 @@ public class LoginBeans implements Serializable {
         this.username = username;
     }
 
-    /**
-     * @return the password
-     */
+   
     public  String getPassword() {
         return password;
     }
 
-    /**
-     * @param password the password to set
-     */
+    
     public void setPassword(String password) {
         this.password = password;
     }
 
-    /**
-     * @return the currentUser
-     */
-    public static User getCurrentUser() {
-        return currentUser;
+    
+    public  User getCurrentUser() {
+        return database.getInstance().getUserByHisUserName(username);
     }
 
-    /**
-     * @param currentUser the currentUser to set
-     */
-    public static void setCurrentUser(User currentUser) {
-        LoginBeans.currentUser = currentUser;
+    
+    public void setCurrentUser(User _currentUser) {
+        this.currentUser = _currentUser;
     }
-     
-    /**
-     *
-     * @param _email
-     * @param db
-     */
+   
     public void resetPassword(String _email,database db){
         //database db = new database();
         User user = db.getUserByUserEmail(_email);

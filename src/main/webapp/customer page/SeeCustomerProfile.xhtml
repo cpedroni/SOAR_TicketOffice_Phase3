@@ -23,29 +23,28 @@
         </b:navBar>
     </h:head>
     <h:body>
-    <b:container>
+    <b:container>-
         <b:row>
                 <b:column col-md="3">
                     <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" width="100" height="100" style="float:right;border:round;"/>  
                 </b:column>
                 <b:column col-md="6" style="padding-top:20px">
                     <h2 align="center"> My Information</h2>
-
-                                <div class="form-group">
-                                    <p>FirstName : test</p>
+                                 <div class="form-group">
+                                    <p>First Name : #{loginBean.currentUser.firstname}</p>
                                 </div> 
                                  <div class="form-group">
-                                    <p>LastName: test</p>
+                                     <p>Last Name: #{loginBean.currentUser.lastname}</p>
                                 </div>
                                 <div class="form-group">
-                                    <p>Username: test</p>
+                                    <p>Username: #{loginBean.currentUser.username}</p>
                                 </div>
                                 <div class="form-group">
-                                   <p>Email: test@test.com</p>
+                                    <p>Email: #{loginBean.currentUser.email}</p>
                                 </div>
                                 <div class="form-group">
-                                   <p>Phone Number: (+41) 7987677867</p>
-                                </div>    
+                                    <p>Phone Number: #{loginBean.currentUser.phonenumber}</p>
+                                </div> 
                 </b:column>
             </b:row>
        

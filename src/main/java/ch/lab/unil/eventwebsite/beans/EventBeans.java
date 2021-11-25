@@ -105,12 +105,13 @@ public class EventBeans implements Serializable  {
     public String buyTicket(Event target){ 
         return "/seller page/BuyTicket.xhtml?param1="+target+"&faces-redirect=true";
     }
-    public void confirmticket(Event target){
+    public String confirmticket(Event target){
+        
         boolean result = database.getInstance().updatePlacesNumber(target);
         if(result == true){
-            // return positive message to user
+            return "success";
         }else{
-            // return negative messages
+            return "error";
         }
 
        

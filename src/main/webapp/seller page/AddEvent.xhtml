@@ -43,25 +43,30 @@
                     <h2 align="center">Event Information</h2>
                         <h:form>      
                                 <div class="form-group">
-                                    <b:inputText label="Event Name:" value='' fieldSize="sm"/>
+                                    <b:inputText label="Event Name:" value='#{eventBean.name}' fieldSize="sm"/>
                                 </div> 
                                 <div class="form-group">
-                                    <b:inputText label="Event Location:" value='' fieldSize="sm"/>
-                                </div> 
-                                <div class="form-group">
-                                    <b:inputText label="Ticket Price:" value='' fieldSize="sm"/>
-                                </div> 
-                                <div class="form-group">
-                                    <b:inputText label="Security requirement:" value='' fieldSize="sm" />
+                                    <b:inputText label="Event Location:" value='#{eventBean.location}' fieldSize="sm"/>
+                                </div>
+                                <div value='#{eventBean.date}'>
+                                    <b:form>
+                                        <b:dateTimePicker value="#{dateTimeBean.justNow}"/>
+                                    </b:form>
                                 </div>
                                 <div class="form-group">
-                                     <b:inputText label="Number of places:" value='' fieldSize="sm"/>
+                                    <b:inputText label="Ticket Price:" value='#{eventBean.price}' fieldSize="sm"/>
+                                </div> 
+                                <div class="form-group">
+                                    <b:inputText label="Security requirement:" value='#{eventBean.security}' fieldSize="sm" />
+                                </div>
+                                <div class="form-group">
+                                    <b:inputText label="Number of places:" value='#{eventBean.nbPlace}' fieldSize="sm"/>
                                  </div> 
                                 <div class="form-group">
-                                    <b:inputText label="Status"  value="#" fieldSize="sm"/> 
+                                    <b:inputText label="Status"  value="#{eventBean.status}" fieldSize="sm"/> 
                                 </div>
                             <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"/> 
-                            <b:commandButton action="SellerHomePage.xhtml?faces-redirect=true" value="Save" onclick="alert('Event Saved');" look="success" icon="chevron-right" iconAlign="right" style="float:right;" disabled="true"/>         
+                            <b:commandButton action="#{eventBean.addEvent()}" value="Save" onclick="alert('Event Saved');" look="success" icon="chevron-right" iconAlign="right" style="float:right;"/>         
                         </h:form>
                  </b:column>
                 <b:column col-md="3"> 

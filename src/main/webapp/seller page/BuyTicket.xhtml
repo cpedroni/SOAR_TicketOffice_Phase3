@@ -8,18 +8,48 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Event Ticket Web App</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
-          function main() {
-                var view = document.getElementById("view");
-                var demo = document.getElementById("demo");
-                demo.onclick = (e) => html2pdf(view);
-            }  
+            $(document).ready(function() {
+                if (window.location.href.indexOf("success") > -1) {
+                  alert(" Tiket sold successfully");
+                  console.log('ok');
+                  document.getElementById("input").innerHTML = "done";
+                  document.getElementById("demo").style.visibility = "visible";
+                 Swal.fire({
+                        title: 'Do you want to Get the pdf?', 
+                        showDenyButton: true,
+                        showCancelButton: false,
+                        confirmButtonText: 'Yes',
+                        denyButtonText: `Later`
+                      }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                          html2pdf(document.getElementById("view").innerHTML); 
+                        } else if(result.isDenied) {
+                          Swal.fire('Saved', '', 'info')
+                        }
+                      });
+                   
+                }
+
+             });      
+            
         </script>
+        <script>
+            function main() {
+                      var view = document.getElementById("view");
+                      html2pdf(view.innerHTML);   
+                  };
+        </script>
+
+  
     </h:head>
     <h:body>
          <b:navBar brand="Event Ticket" brandHref="#" inverse="true" style="background-color: rgb(245, 223, 77);">
             <b:navbarLinks style="float:none;">
-                <b:navLink icon="home" value ="Home" outcome="SellerHomepage.xhtml?faces-redirect=true"></b:navLink>  
+                <b:navLink icon="home" value ="Home" outcome="SellerHomePage.xhtml?faces-redirect=true"></b:navLink>  
                 <b:dropMenu icon-awesome="fa-user" value="My profile">
                     <b:navLink icon-awesome="fa-folder-open " value="My information" outcome="UserProfile.xhtml?faces-redirect=true"></b:navLink> 
                     <b:navLink></b:navLink>
@@ -43,7 +73,7 @@
                 <b:column col-md="6" style="padding-top:20px">
                     <h2 align="center">#{eventBean.targetEvent.getName()}</h2>
                         <h:form>
-                            <div id="view"> 
+                            <div id="view2"> 
                                 <div class="form-group">
                                     <b:inputText label="Event Location:" value="#{eventBean.targetEvent.getLocation()}" fieldSize="sm" readonly="true"/>
                                 </div> 
@@ -59,14 +89,24 @@
                                 <div class="form-group">
                                     <b:inputText label="Number of Ticket:"  value="1" fieldSize="sm" readonly="true"/>
                                  </div> 
+                                <div class="form-group">
+                                    <p id="input"></p>
+                                </div> 
                             </div>     
-                            <b:commandButton action="#{eventBean.confirmticket(eventBean.targetEvent)}" value="confirm" onclick="document.getElementById('demo').style.disabled='false';" look="success" icon="chevron-right" iconAlign="right"/>
+                            <b:commandButton action="#{eventBean.confirmticket(eventBean.targetEvent)}" value="confirm" onclick="pdf()"  look="success" icon="chevron-right" iconAlign="right"/>
                             <b:commandButton action="/seller page/SellerHomePage.xhtml?faces-redirect=true" value="cancel" look="danger" icon="chevron-right" iconAlign="right" style="float:right;"/>
                         </h:form>
                 </b:column>
                 <b:column col-md="3">
                     <h2>Ticket PDF</h2>
-                        <p><b:button id="demo" value="Get pdf  »" onclick="main()" disabled='false'/></p>
+                        <p><b:button id="demo" value="Get pdf  »" onclick="main()" style="visibility: hidden;"/></p>
+                            <pre id ="view" style="visibility: hidden;">
+                                    Name : #{eventBean.targetEvent.getName()}
+                                    Location : #{eventBean.targetEvent.getLocation()}
+                                    Price : #{eventBean.targetEvent.getPrice()}
+                                    Security : #{eventBean.targetEvent.getSecurity()}
+                                    User  : customername 
+                            </pre>    
                 </b:column>
             </b:row>
     </h:body>

@@ -22,14 +22,14 @@ public class EventBeans implements Serializable  {
    
    
     private Event targetEvent;
-    private String name;
-    private Date date;
-    private String location;
-    private String description;
-    private double price;
-    private int nbplace;
-    private ArrayList<String>security;    
-    private ArrayList<String>status;
+    private String name = "";
+    private Date date = new Date();
+    private String location = "";
+    private String description = "";
+    private double price = 0.0;
+    private int nbplace= 0;
+    private ArrayList<String>security = new ArrayList<>();    
+    private ArrayList<String>status = new ArrayList<>() ;
     
     public String getOneEvent(Event _e){
         
@@ -90,7 +90,7 @@ public class EventBeans implements Serializable  {
      *@param
      */
     public void deleteAllExpiredEvent(){
-        // delete e from list
+        // delete e from lists
         int itemDeleted = database.getInstance().deleteAllExpiredEventObj();
         if(itemDeleted == 0){
             // return a negative message
@@ -99,21 +99,17 @@ public class EventBeans implements Serializable  {
         }
     }
 
-    /**
-     *@param
-     */
-    public  void addEvent(){
-            
+    public String addEvent(){     
         database.getInstance().insertEvent(new Event(name,date, location, description, price, nbplace, security, status));
+
+        Event  loc = database.getInstance().getAllEventByLocation(location).get(0);
+        if(loc!= null){
+            return "/seller page/SellerHomePage.xhtml?param ="+loc+"&faces-redirect=true";
+        }
+        else{
+            return "/seller page/SellerHomePage.xhtml?param =fail&faces-redirect=true";
+        }
         
-        this.name = "";
-        this.date = null;
-        this.location = "";
-        this.description = "";
-        this.price = 0;
-        this.nbplace = 0;
-        this.security = new ArrayList<>();
-        this.status = new ArrayList<>();
     }
    
     
@@ -122,13 +118,13 @@ public class EventBeans implements Serializable  {
     public String buyTicket(Event target){ 
         return "/seller page/BuyTicket.xhtml?param1="+target+"&faces-redirect=true";
     }
+    
     public String confirmticket(Event target){
-        
         boolean result = database.getInstance().updatePlacesNumber(target);
         if(result == true){
-            return "success";
+            return "/seller page/BuyTicket.xhtml?param1=success&faces-redirect=true";
         }else{
-            return "error";
+            return "/seller page/SellerHomePage.xhtml?param1=error&faces-redirect=true";
         }
 
        

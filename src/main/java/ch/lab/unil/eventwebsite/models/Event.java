@@ -45,6 +45,18 @@ public class Event {
         status.addAll(statusList);       
         
     }
+    
+    public Event() {
+        this.name = "";
+        this.date = null;
+        this.location = "";
+        this.description = "";
+        this.price = 0;
+        this.nbplace = 0;
+        this.security = new ArrayList<>();
+        this.status = new ArrayList<>();       
+        
+    }
 
  
     public String getName() {

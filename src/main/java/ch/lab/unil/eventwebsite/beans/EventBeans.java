@@ -22,6 +22,14 @@ public class EventBeans implements Serializable  {
    
    
     private Event targetEvent;
+    private String name;
+    private Date date;
+    private String location;
+    private String description;
+    private double price;
+    private int nbplace;
+    private ArrayList<String>security;    
+    private ArrayList<String>status;
     
     public String getOneEvent(Event _e){
         
@@ -31,11 +39,11 @@ public class EventBeans implements Serializable  {
              return "/seller page/SeeOneEvent.xhtml?param1="+targetEvent+"&faces-redirect=true";
          }else{
              return "/seller page/SellerHomePage.xhtml?faces-redirect=true";
-         }
+         }    
          
 
     }
-     public void setTargetEvent(Event e){
+    public void setTargetEvent(Event e){
         this.targetEvent = e;
     }
     public Event getTargetEvent(){
@@ -94,9 +102,18 @@ public class EventBeans implements Serializable  {
     /**
      *@param
      */
-    public  void addEvent(Event _e){
-        database.getInstance().insertEvent(_e);
+    public  void addEvent(){
+            
+        database.getInstance().insertEvent(new Event(name,date, location, description, price, nbplace, security, status));
         
+        this.name = "";
+        this.date = null;
+        this.location = "";
+        this.description = "";
+        this.price = 0;
+        this.nbplace = 0;
+        this.security = new ArrayList<>();
+        this.status = new ArrayList<>();
     }
    
     
@@ -117,9 +134,85 @@ public class EventBeans implements Serializable  {
        
     }
     
+    public String getName() {
+        return name;
+    }
+
+    public void setEventName(String name ){
+        this.name = name;
+    }
+    public Date getDate() {
+        
+        return this.date;
+    }
+    public void setEventDate(Date dateandtime){
+        this.date = dateandtime;
+    }
+    public String getLocation() {
+        return this.location;
+    }
+    public void setEventLocation(String location){
+        this.location = location;
+    }
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setEventDescription(String description){
+        this.description = description;
+    }
+
+  
+    public double getPrice() {
+        return this.price;
+    }
+
+   
+    public void setEventPrice(double price){
+        this.price = price;
+    }
+  
+    public int  getNbPlace(){
+        return this.nbplace;
+    }
+   
+     public void setNbPlace(int _nbplace){
+        this.nbplace = _nbplace;
+    }
+
+    
+    /*public String getSecurity(){
+        String list = "";
+        for(String item : security){
+           list = list +" , "+ item;
+        }
+        return list;
+    }*/
+     
+    public ArrayList getSecurity(){
+        return security;
+    }
+    public void setEventSecurity(ArrayList<String> security){
+        this.security = security;
+    }
+
+    public ArrayList<String> getStatus(){
+        return this.status;
+    }
+
+    public void setEventStatus(ArrayList<String> status){
+        this.status = status;
+    }
+    
+
+
+       
+
+}
+
 
     
 
-}
+
 
 

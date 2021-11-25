@@ -43,7 +43,6 @@
                     <b:dataTableColumn value="#{event.getDescription()}" label="Description" />
                     <b:dataTableColumn value="#{event.getPrice()}"  label="Price (CHF)"/>
                     <b:dataTableColumn value="#{event.getNbPlace()}"  label="Places"/> 
-                    <b:dataTableColumn value="#{event.getStatus()}" label="Status"/>
                     <b:dataTableColumn>
                         <b:commandButton value="watch" iconAwesome="fa-eye" 
                                          action="#{eventBean.getOneEvent(event)}">

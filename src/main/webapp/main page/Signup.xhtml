@@ -15,13 +15,20 @@
              }
          </style>
      </h:head>
-    <h:body style="padding-top: 60px; background-color: rgb(245, 223, 77);">
-         <b:navBar brand="Event Ticket" brandHref="#" fixed="top" inverse="true" style="background-color: rgb(245, 223, 77);">
+    <h:body style="padding-top: 10px; background-color: rgb(245, 223, 77);">
+         <b:navBar brandHref="#" fixed="top" inverse="true" style="background-color: rgb(245, 223, 77);">
              <b:navbarLinks style="float:none;">
                  <b:navLink value ="Back to login page" outcome="Login.xhtml?faces-redirect=true"></b:navLink>
              </b:navbarLinks>
          </b:navBar>
         <b:container>
+           <b:jumbotron>
+               <b:container>
+                   <b:row>
+                   <h1 align="center">Welcome to the Ticket Office</h1> 
+                   </b:row>  
+               </b:container>
+           </b:jumbotron>
          <h:form styleClass="form-signin" prependId="false">
                  <h2 class="form-signin-heading" style="color:black">Your informations</h2>
                  <b:inputText id="username" placeholder="Username" value="#{registerBean.getUsername()}"></b:inputText>
@@ -35,7 +42,7 @@
                      <b:radiobutton value="#{registerBean.getUserRole()}" itemLabel="Seller"/>
                      <b:radiobutton value="#{registerBean.getUserRole()}" itemLabel="Customer"/>
                  </b:panelGrid>
-                 <b:commandButton  action="#{registerBean.createNewUser(db)}" look="warning" value="Sign up" onclick="alert('You have created your user profile');" icon="log-in" size="lg"/>
+                 <b:commandButton  action="#{registerBean.createNewUser()}" look="warning" value="Sign up" onclick="alert('You have created your user profile');" icon="log-in" size="lg"/>
          </h:form>
         </b:container>
       </h:body>

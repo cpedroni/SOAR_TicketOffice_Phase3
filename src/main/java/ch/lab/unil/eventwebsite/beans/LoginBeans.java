@@ -91,7 +91,6 @@ public class LoginBeans implements Serializable {
       * @param db
       */
      public String resetPassword(String _email,database db){
-         
          User user = db.getUserByUserEmail(_email);
          if(user != null){
              if(password.length()> 0){

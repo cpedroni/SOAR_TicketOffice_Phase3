@@ -20,8 +20,15 @@ and open the template in the editor.
             }
         </style>
     </h:head>
-    <h:body style="padding-top: 60px; background-color: rgb(245, 223, 77);">
+    <h:body style="padding-top: 10px; background-color: rgb(245, 223, 77);">
         <b:container>
+            <b:jumbotron>
+                <b:container>
+                    <b:row>
+                    <h1 align="center">Welcome to the Ticket Office</h1> 
+                    </b:row>  
+                </b:container>
+            </b:jumbotron>
             <h:form styleClass="form-signin" prependId="false">
                 <h2 class="form-signin-heading" style="color:black">Please sign in</h2>
                 <b:inputText id="email" placeholder="Username" value="#{loginBean.username}">

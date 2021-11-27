@@ -85,6 +85,7 @@ public class LoginBeans implements Serializable {
         this.currentUser = _currentUser;
     }
 
+
     public String resetPassword(){
       User user = database.getInstance().getUserByHisUserName(username);
         if(user != null){
@@ -100,7 +101,4 @@ public class LoginBeans implements Serializable {
             
         
     }
-   
-
 }
-

@@ -11,7 +11,7 @@ and open the template in the editor.
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Welcome to the Ticket Office</title>
+        <title>Event Ticket Web App</title>
         <style type="text/css">
             .form-signin {
                 margin: 0 auto;
@@ -20,8 +20,11 @@ and open the template in the editor.
             }
         </style>
     </h:head>
-    <h:body style="padding-top: 60px; background-color: rgb(245, 223, 77);">
-        <b:container>
+    <h:body style="padding-top: 10px; background-color: rgb(245, 223, 77);">
+        <b:navBar brand="Event Ticket" brandHref="#" fixed="top" inverse="true" style="background-color: rgb(245, 223, 77);">
+            <b:navbarLinks style="float:none;">
+            </b:navbarLinks>
+        </b:navBar>
             <b:jumbotron>
                 <b:container>
                     <b:row>
@@ -29,6 +32,7 @@ and open the template in the editor.
                     </b:row>  
                 </b:container>
             </b:jumbotron>
+        <b:container>
             <h:form styleClass="form-signin" prependId="false">
                 <h2 class="form-signin-heading" style="color:black">Please sign in</h2>
                 <b:inputText id="email" placeholder="Username" value="#{loginBean.username}">

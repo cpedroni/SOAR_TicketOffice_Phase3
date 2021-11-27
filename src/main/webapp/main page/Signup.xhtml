@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:b="http://bootsfaces.net/ui">
     <h:head>
-        <title>Welcome to the Ticket Office</title>
+        <title>Event Ticket Web App</title>
         <style type="text/css">
             .form-signin {
                 margin: 0 auto;
@@ -14,8 +14,19 @@
             }
         </style>
     </h:head>
-      <b:button outcome="/main page/Login.xhtml?faces-redirect=true" value="Back to Home Page"/>
-    <h:body style="padding-top: 60px; background-color: rgb(245, 223, 77);">
+    <h:body style="padding-top: 10px; background-color: rgb(245, 223, 77);">
+        <b:navBar brand="Event Ticket" brandHref="#" fixed="top" inverse="true" style="background-color: rgb(245, 223, 77);">
+            <b:navbarLinks style="float:none;">
+                <b:navLink value ="Back to login page" outcome="Login.xhtml?faces-redirect=true"></b:navLink>
+            </b:navbarLinks>
+        </b:navBar>
+            <b:jumbotron>
+                <b:container>
+                    <b:row>
+                    <h1 align="center">Welcome to the Ticket Office</h1> 
+                    </b:row>  
+                </b:container>
+            </b:jumbotron>
         <b:container>
             <h:form styleClass="form-signin" prependId="false">
                 <h2 class="form-signin-heading" style="color:black">Sign up</h2>

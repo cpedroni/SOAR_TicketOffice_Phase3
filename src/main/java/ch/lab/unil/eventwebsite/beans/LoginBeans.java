@@ -85,19 +85,20 @@ public class LoginBeans implements Serializable {
         this.currentUser = _currentUser;
     }
 
-    public void resetPassword(String _email){
-
-        //
-        /**
-        User user = db.getUserByUserEmail(_email);
+    public String resetPassword(){
+      User user = database.getInstance().getUserByHisUserName(username);
         if(user != null){
-            if(password.length()> 0){
-                if(db.updateUserList(user, password) == true){
-                    //
-                }
+            if(database.getInstance().updateUserList(user, password) == true){
+               return "/main page/ResetPassword.xhtml?param=true&faces-redirect=true";
+            }else{
+                return "/main page/ResetPassword.xhtml?param=false&faces-redirect=true";
             }
-        }
-        */
+     
+        }else{
+            return "/main page/ResetPassword.xhtml?param=false&faces-redirect=true";
+        }    
+            
+        
     }
    
 

@@ -8,7 +8,7 @@ package ch.lab.unil.eventwebsite.models;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Objects;
+
 
 /**
  *
@@ -16,33 +16,24 @@ import java.util.Objects;
  */
 public class Event {
     
-    private String name;
-    private Date date;
-    private String location;
-    private String description;
-    private double price;
-    private int nbplace;
-    private ArrayList<String>security;    
-    private ArrayList<String>status;
+    private String name = "";
+    private Date date = new Date();
+    private String location = "";
+    private String description = "";
+    private double price = 0;
+    private int nbplace = 0;
+    private String security = "";    
+    private String status = "";
     
-    /**
-     *@param
-     */
-   
-
-    
-    public Event(String name, Date _date, String location, String description, double price,int _nbplace, ArrayList<String> securityList, ArrayList<String> statusList) {
+    public Event(String name, Date _date, String location, String description, double price,int _nbplace,String securityList,String statusList) {
         this.name = name;
         this.date = _date;
         this.location = location;
         this.description = description;
         this.price = price;
         this.nbplace = _nbplace;
-        this.security = new ArrayList<>();
-        this.status = new ArrayList<>();
-
-        security.addAll(securityList);
-        status.addAll(statusList);       
+        this.security = securityList;
+        this.status = statusList;       
         
     }
     
@@ -53,8 +44,8 @@ public class Event {
         this.description = "";
         this.price = 0;
         this.nbplace = 0;
-        this.security = new ArrayList<>();
-        this.status = new ArrayList<>();       
+        this.security ="";
+        this.status = "";       
         
     }
 
@@ -63,27 +54,27 @@ public class Event {
         return name;
     }
 
-    public void setEventName(String name ){
+    public void setName(String name ){
         this.name = name;
     }
     public Date getDate() {
         
         return this.date;
     }
-    public void setEventDate(Date dateandtime){
+    public void setDate(Date dateandtime){
         this.date = dateandtime;
     }
     public String getLocation() {
         return this.location;
     }
-    public void setEventLocation(String location){
+    public void setLocation(String location){
         this.location = location;
     }
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
-    public void setEventDescription(String description){
+    public void setDescription(String description){
         this.description = description;
     }
 
@@ -93,7 +84,7 @@ public class Event {
     }
 
    
-    public void setEventPrice(double price){
+    public void setPrice(double price){
         this.price = price;
     }
   
@@ -107,31 +98,22 @@ public class Event {
 
     
     public String getSecurity(){
-        String list = "";
-        for(String item : security){
-           list = list +" , "+ item;
-        }
-        return list;
+        return security;
     }
-    public void setEventSecurity(ArrayList<String> security){
+    
+    public void setSecurity(String security){
         this.security = security;
     }
 
-    public ArrayList<String> getStatus(){
-        return this.status;
+    public String getStatus(){
+        return status;
+        
     }
 
-    public void setEventStatus(ArrayList<String> status){
-        this.status = status;
+    public void setStatus(String _status){
+        this.status = _status;
     }
-    @Override
-     public boolean equals(Object obj) {
-        if (obj instanceof Event) {
-            Event f = (Event) obj;
-            return f.toString().equals(this.toString());
-        }
-        return false;
-    }
+    
 
 
        

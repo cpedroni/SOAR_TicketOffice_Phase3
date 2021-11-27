@@ -16,8 +16,8 @@
                     <b:navLink icon-awesome="fa-sign-out " value="Log out" outcome="/main page/Login.xhtml?faces-redirect=true"></b:navLink>
                 </b:dropMenu>
                 <h:form styleClass="navbar-form navbar-right">
-                    <b:inputText placeholder="Search..."/>
-                    <b:commandButton action="#"><b:iconAwesome value="fa-search" size="xs"/></b:commandButton> 
+                    <b:inputText placeholder="Search..." value="#{eventBean.element}" required="true"/>
+                    <b:commandButton action="SearchResult.xhtml?faces-redirect=true"><b:iconAwesome value="fa-search" size="xs"/></b:commandButton> 
                 </h:form>   
             </b:navbarLinks>
         </b:navBar>

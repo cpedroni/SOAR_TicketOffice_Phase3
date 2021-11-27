@@ -1,53 +1,62 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:b="http://bootsfaces.net/ui"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Event Ticket Web App</title> 
-        <b:navBar brand="Event Ticket" brandHref="#" inverse="true">
-            <b:navbarLinks>
-                <b:navLink value="Home" href="Homepage.xhtml?faces-redirect=true"></b:navLink>  
-                <b:dropMenu value="About us">
-                    <b:navLink value="Action" href="#"></b:navLink> 
-                    <b:navLink value="Something else here" href="#"></b:navLink>
-                    <b:navLink></b:navLink>
-                    <b:navLink header="Nav header"></b:navLink>
-                    <b:navLink value="One more separated link" href="#"></b:navLink>
-                </b:dropMenu>
-                <h:form styleClass= "navbar-form navbar-right"  role="search">
-                        <b:inputText placeholder="Search..." style="border-radius:24px;" size="50"/>
-                        <b:commandButton action="a"><b:iconAwesome value="fa-search" size="xs"/></b:commandButton>
-                        <b:button value="Sign up" href="Signup.xhtml?faces-redirect=true" size="sm" look="primary" style="border-radius:15px;float:right; "/>
-                        <b:button value="Sign in" href="Login.xhtml?faces-redirect=true" size="sm" look="default" style="border-radius:15px;float:right;"/>   
-                </h:form>    
-            </b:navbarLinks>
-        </b:navBar>
+        <title>Welcome to the Ticket Office</title>
+        <style type="text/css">
+            .form-signin {
+                margin: 0 auto;
+                max-width: 330px;
+                padding: 15px;
+            }
+        </style>
     </h:head>
-    <h:body>
-        <h:form>
-            <h:panelGrid columns="2">
-                <h:outputText value="Username"/>
-                <h:inputText value="#{registerBean.getUsername()}" />
-                <h:outputText value="First Name"/>
-                <h:inputText value="#{registerBean.getFirstname()}" />
-                <h:outputText value="Last Name"/>
-                <h:inputText value="#{registerBean.getLastname()}" />
-                <h:outputText value="Email"/>
-                <h:inputText value="#{registerBean.getEmail()}" />
-                <h:outputText value="Phone Number"/>
-                <h:inputText value="#{registerBean.getPhonenumber()}" />
-                <h:outputText value="Password"/>
-                <h:inputSecret value="#{registerBean.getPassword()}" />
-                <b:selectBooleanCheckbox value="#{registerBean.getUserRole()}" caption="Seller" label="Select your role" />
-                <b:selectBooleanCheckbox value="#{registerBean.getUserRole()}" caption="Customer"/>
-                <br/>
-                <h:commandButton value="Create a User" action="#{registerBean.createNewUser()}"/>
-                <br/>
-                <h:commandButton value="Back to Home Page" action="/Homepage/Homepage.xhtml?faces-redirect=true"/>
-            </h:panelGrid>
-        </h:form>
+      <b:button outcome="/main page/Login.xhtml?faces-redirect=true" value="Back to Home Page"/>
+    <h:body style="padding-top: 60px; background-color: rgb(245, 223, 77);">
+        <b:container>
+            <h:form styleClass="form-signin" prependId="false">
+                <h2 class="form-signin-heading" style="color:black">Sign up</h2>
+                <b:inputText id="username" placeholder="Username" value="#{registerBean.username}" required="true">
+                        <f:facet name="prepend">
+                            <b:icon name="user" />
+                        </f:facet>
+                    </b:inputText>
+                    <b:inputText id="fname" placeholder="Firstname" value="#{registerBean.firstname}" required="true">
+                        <f:facet name="prepend">
+                            <b:icon name="user" />
+                        </f:facet>
+                    </b:inputText>
+                    <b:inputText id="lname" placeholder="Lasttname" value="#{registerBean.lastname}" required="true">
+                        <f:facet name="prepend">
+                            <b:icon name="user" />
+                        </f:facet>
+                    </b:inputText>
+                    <b:inputText id="email" placeholder="Email"  value="#{registerBean.email}" required="true">
+                        <f:facet name="prepend">
+                            <b:iconAwesome name="fa-envelope" />
+                            </f:facet>
+                    </b:inputText>
+                    <b:inputText id="password" placeholder="Password" type="password" value="#{registerBean.password}" required="true">
+                            <f:facet name="prepend">
+                                <b:iconAwesome name="key" />
+                                </f:facet>
+                    </b:inputText>
+                    <b:inputText id="phone" placeholder="Phone Number"  value="#{registerBean.phonenumber}" >
+                        <f:facet name="prepend">
+                            <b:iconAwesome name="phone" />
+                            </f:facet>
+                    </b:inputText>
+                    <b:inputText id="role" placeholder="Role"  value="#{registerBean.userRole}" required="true">
+                        <f:facet name="prepend">
+                            <b:iconAwesome name="fa-random " />
+                            </f:facet>
+                    </b:inputText>
+                <b:commandButton action="#{registerBean.createNewUser()}" value="Create a User" look="primary" icon="log-out" size="lg"/> 
+            </h:form>
+        </b:container>
     </h:body>
 </html>

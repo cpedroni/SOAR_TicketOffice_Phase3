@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Event Ticket Web App</title> 
+       <b:navBar brand="Event Ticket" brandHref="#" sticky="true" style="background-color: rgb(245, 223, 77);">
+            <b:navbarLinks style="float:none;">
+                <b:navLink icon="home" value ="Home" outcome="SellerHomePage.xhtml?faces-redirect=true"></b:navLink>  
+                <b:dropMenu icon-awesome="fa-user" value="My profile">
+                    <b:navLink icon-awesome="fa-folder-open " value="My information" outcome="SeeCustomerProfile.xhtml?faces-redirect=true"></b:navLink> 
+                    <b:navLink></b:navLink>
+                    <b:navLink icon-awesome="fa-sign-out " value="Log out" outcome="/main page/Login.xhtml?faces-redirect=true"></b:navLink>
+                </b:dropMenu>
+            </b:navbarLinks>
+        </b:navBar>
+    </h:head>
+    <h:body>
+    <b:container>
+        <b:row>
+                <b:column col-md="3">
+                    
+                </b:column>
+                <b:column col-md="6" style="padding-top:20px">
+                    <h2 align="center"> Your search result : </h2> 
+                <br/>
+            
+                <ui:repeat value="#{eventBean.search()}" var="item">
+                    <h:outputText value="---------------------------" />
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Name:" />
+                        <h:outputText value="#{item.getName()}" />
+                        <h:outputText value="Location:" />
+                        <h:outputText value="#{item.getStatus()}" />
+                        <h:outputText value="#{item.getLocation()}" />
+                        <h:outputText value="Price:" />
+                        <h:outputText value="#{item.getPrice()}" />
+                        <h:outputText value="Places:" />
+                        <h:outputText value="#{item.getNbPlace()}" />
+                    </h:panelGrid>
+                    <br/>
+                    <h:outputText value="----------------------------" />
+                </ui:repeat>
+           
+                <br/>
+                </b:column>
+            </b:row>
+       
+    </b:container>
+    </h:body>
+    <b:navBar brand="©2013-2018 TheCoder4Eu" fixed="bottom" sticky="true" style="background-color: rgb(245, 223, 77);"/>
+</html>

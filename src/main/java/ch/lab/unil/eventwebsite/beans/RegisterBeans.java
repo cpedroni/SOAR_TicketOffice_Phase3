@@ -17,338 +17,123 @@ import javax.inject.Named;
 @Named(value = "registerBean")
 @SessionScoped
 public class RegisterBeans implements Serializable {
-        private static String firstname;
-        private static String lastname;
-        private static String username;
-        private static String email;
-        private static String password;
-        private static String  phonenumber;
-        private static String userRole;
-        private static  ArrayList<Event> saleTicketList;
-        private  static database db ;
+        private  String firstname="";
+        private  String lastname="";
+        private  String username="";
+        private  String email="";
+        private  String password="";
+        private  String  phonenumber="";
+        private  String userRole="";
+        private   ArrayList<Event> saleTicketList= new ArrayList<>();
     
-    // default constructor
 
-    /**
-     *@param
-     */
-    public  RegisterBeans(){
-        firstname = "";
-        lastname = "";
-        username = "";
-        email = "";
-        password = "";
-        phonenumber = "";
-        userRole = "";
-        saleTicketList = new ArrayList<Event>();
-        db = new database();
-    }
-    
-    // parameter constructor
-
-    /**
-     *
-     * @param f
-     * @param l
-     * @param u
-     * @param e
-     * @param p
-     * @param pho_N
-     * @param Ur
-     */
-    public  RegisterBeans( String f, String l, String u, String e, String p, String pho_N, String Ur){
-        firstname = f;
-        lastname = l;
-        username = u;
-        email = e;
-        password = p;
-        phonenumber = pho_N;
-        userRole = Ur;
-        saleTicketList = new ArrayList<Event>();
-        db = new database();
+    public String createNewUser()throws DoesNotExistExeeption,AlreadyExistException  {
         
-    }
-
-
-    /**
-     * this method create a new user only if he does not exist on the database otherwise it generate an  exception
-     * @param db
-    **/
-    public static void createNewUser(database db) {
-        // db = getDb();
-        try {
-            if (!checkIfEmailExist(getEmail()) && !checkIfUsernameExist(getUsername())) {
-                db.insertUser(new User(getFirstname(),getLastname(),getUsername(),getEmail(),getPassword(),getPhonenumber(),getUserRole()));
+            if (!emailExists() && !usernameExists()) {
+                 boolean result = database.getInstance().insertUser(new User(firstname,lastname,username,email,password,phonenumber,userRole));
+                 if(result == true){
+                     return "/main page/Login.xhtml?param1=registered&faces-redirect=true";
+                 }else{
+                     return "/main page/Signup.xhtml?param1=notregistered&faces-redirect=true";
+                 }
+            }else{
+                 return "/main page/Signup.xhtml?param1=notregistered&faces-redirect=true";
             }
-        } catch (AlreadyExistException | DoesNotExistExeeption ex) {
-            System.out.println(ex.getMessage());
-        }
+       
     }
     
-    /**
-     * search in the database a user by username and return the user if found o null if not
-     * @param username
-     * @return 
-    **/
     public User getUserbyUsername(String username){
         
         User targetUser  = new User();
         if (!username.equals(""))
         { 
-             targetUser =  db.getUserByHisUserName(username.trim());
+             targetUser =  database.getInstance().getUserByHisUserName(username.trim());
         }
         return targetUser;
     }
     
-    /**
-     * check if there is a user in the database with the specify email 
-     * return true if doesn't and false otherwise
-     * @param email
-     * @return 
-     * @throws ch.lab.unil.eventwebsite.Exceptions.AlreadyExistException 
-    **/
-    protected static boolean checkIfEmailExist(String email) throws AlreadyExistException {
-        
-        if(db.getUserByUserEmail(email) == null)
-        {
-            return true;
-        }else
-        {
-            return false;
+    private boolean usernameExists() throws DoesNotExistExeeption {
+        for (User user : database.getInstance().getUsers()) {
+            if (user.getUsername().equals(username)) {
+                return true;
+            }
         }
-            
-       
+        return false;
     }
-    /**
-     * check if there is a user in the database with the specify username 
-     * return true if doesn't and false otherwise
-     * @param username
-     * @return 
-     * @throws ch.lab.unil.eventwebsite.Exceptions.DoesNotExistExeeption
-    **/
-    protected static boolean checkIfUsernameExist(String username) throws DoesNotExistExeeption {
-        database db = new database();
-        if(db.getUserByHisUserName(username) == null)
-        {
-            return true;
-        }else
-        {
-            return false;
+ 
+    private boolean emailExists() throws AlreadyExistException {
+        for (User user : database.getInstance().getUsers()) {
+            if (user.getEmail().equals(email)) {
+                throw new AlreadyExistException("The email " + email + " already in use.");
+            }
         }
+        return false;
     }
    
-    // return the actual database Object
 
-    /**
-     *
-     * @return
-     */
-    public static database getDb(){
-     return db;
-    }
-    
-    // set the database 
-
-    /**
-     *
-     * @param _db
-     */
-    public static void setDb(database _db){
-         RegisterBeans.db = _db;
-       }
-   
-    /*
-    * get the firstname
-    */
-
-    /**
-     *
-     * @return
-     */
-
-    public  static String getFirstname() {
+    public  String getFirstname() {
         return firstname;
     }
 
-    /*
-     * set  firstname 
-     */
-
-    /**
-     *
-     * @param _firstname
-     */
-
-    public  static void setFirstname(String _firstname) {
-       firstname = _firstname;
+    public  void setFirstname(String _firstname) {
+       this.firstname = _firstname;
     }
 
-    /*
-     * @return the lastname
-     */
-
-    /**
-     *
-     * @return
-     */
-
-    public static String getLastname() {
+    public String getLastname() {
         return lastname;
     }
 
-    /*
-     * @param  lastname to set
-     */
 
-    /**
-     *
-     * @param lastname
-     */
-
-    public static void setLastname(String lastname) {
-         RegisterBeans.lastname = lastname;
+    public void setLastname(String lastname) {
+         this.lastname = lastname;
     }
-
-    /*
-     * @return the username
-     */
-
-    /**
-     *
-     * @return
-     */
-
-    public static String getUsername() {
+    public String getUsername() {
         return username;
     }
-
-    /*
-     * @param  username to set
-     */
-
-    /**
-     *
-     * @param username
-     */
-
-    public static void setUsername(String username) {
-         RegisterBeans.username = username;
+    public void setUsername(String username) {
+         this.username = username;
     }
 
-    /*
-     * @return the email
-     */
-
-    /**
-     *
-     * @return
-     */
-
-    public static String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    /*
-     * @param email the email to set
-     */
-
-    /**
-     *
-     * @param _email
-     */
-
-    public static void setEmail(String _email) {
-       email = _email;
+    public  void setEmail(String _email) {
+       this.email = _email;
     }
 
-    /**
-     * @return the password
-     */
-    public static String getPassword() {
+    public  String getPassword() {
         return password;
     }
 
-    /*
-     * @param password the password to set
-     */
 
-    /**
-     *
-     * @param _password
-     */
-
-    public static void setPassword(String _password) {
-        password = _password;
+    public void setPassword(String _password) {
+        this.password = _password;
     }
 
-    /*
-     * @return the phonenumber
-     */
-
-    /**
-     *
-     * @return
-     */
-
-    public static String getPhonenumber() {
+   
+    public  String getPhonenumber() {
         return phonenumber;
     }
 
-    /*
-     * @param phonenumber the phonenumber to set
-     */
-
-    /**
-     *
-     * @param _phonenumber
-     */
-
-    public static void setPhonenumber(String _phonenumber) {
-        phonenumber = _phonenumber;
+    
+    public  void setPhonenumber(String _phonenumber) {
+        this.phonenumber = _phonenumber;
     }
 
-    /*
-     * @param  get the userRole
-     */
-
-    /**
-     *
-     * @return
-     */
-
-    public static String getUserRole() {
-        return  RegisterBeans.userRole;
+    public  String getUserRole() {
+        return this.userRole;
     }
 
-    /**
-     *
-     * @param _userRole
-     */
-
-    public static void setUserRole(String _userRole) {
-        userRole = _userRole;
+    public  void setUserRole(String _userRole) {
+        this.userRole = _userRole;
     }
-
-    /*
-     * @return the saleTicketList
-     */
-
-    /**
-     *
-     * @return
-     */
-
-    public static ArrayList<Event> getSaleTicketList() {
+    public ArrayList<Event> getSaleTicketList() {
         return saleTicketList;
     }
 
-    /**
-     *
-     * @param _saleTicketList
-     */
-
-    public static void setSaleTicketList(ArrayList<Event> _saleTicketList) {
-         RegisterBeans.saleTicketList = _saleTicketList;
+    public void setSaleTicketList(ArrayList<Event> _saleTicketList) {
+         this.saleTicketList = _saleTicketList;
     }
 }
 

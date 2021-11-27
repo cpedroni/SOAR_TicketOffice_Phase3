@@ -18,24 +18,13 @@
                     <b:navLink></b:navLink>
                     <b:navLink icon-awesome="fa-sign-out " value="Log out" outcome="/main page/Login.xhtml?faces-redirect=true"></b:navLink>
                 </b:dropMenu>
-                 <b:dropMenu icon-awesome="fa-user" value="Menu">
-                   
-                    <b:navLink></b:navLink>
-                    <!--
-                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Name" href="EventByName.xhtml?faces-redirect=true"></b:navLink>
-                    <b:navLink icon-awesome="fa-folder-open " value="Get Event By Location" href="EventByLocation.xhtml?faces-redirect=true"></b:navLink>
-                    <b:navLink icon-awesome="fa-folder-open " value="Delete Event" href="DeleteEvent.xhtml?faces-redirect=true"></b:navLink>
-                    -->
-                </b:dropMenu>
-                    
-                
                 <h:form styleClass="navbar-form navbar-right">
-                        <b:inputText placeholder="Search..."/>
-                        <b:commandButton action="a"><b:iconAwesome value="fa-search" size="xs"/></b:commandButton> 
+                       <b:inputText placeholder="Search..." value="#{eventBean.element}" required="true"/>
+                    <b:commandButton action="SearchResult.xhtml?faces-redirect=true"><b:iconAwesome value="fa-search" size="xs"/></b:commandButton> 
                 </h:form>   
             </b:navbarLinks>
         </b:navBar>
-        <b:row style="padding-top: 70px; padding-bottom: 70px">
+        <b:row style="padding-top: 70px; padding-bottom: 150px">
                 <b:column col-md="3">
                     <p><b:button id="demo" value="Back to Home" outcome="SellerHomePage.xhtml?faces-redirect=true" style="float: right;"/></p>    
                 </b:column>
@@ -43,29 +32,45 @@
                     <h2 align="center">Event Information</h2>
                         <h:form>      
                                 <div class="form-group">
-                                    <b:inputText label="Event Name:" value='#{eventBean.name}' fieldSize="sm"/>
+                                    <b:inputText label="Event Name:" value='#{eventBean.targetEvent.name}' fieldSize="sm" required="true"/>
                                 </div> 
                                 <div class="form-group">
-                                    <b:inputText label="Event Location:" value='#{eventBean.location}' fieldSize="sm"/>
-                                </div>
-                                <div value='#{eventBean.date}'>
-                                    <b:form>
-                                        <b:dateTimePicker value="#{dateTimeBean.justNow}"/>
-                                    </b:form>
+                                    <b:inputText label="Event Location:" value='#{eventBean.targetEvent.location}' fieldSize="sm" required="true"/>
                                 </div>
                                 <div class="form-group">
-                                    <b:inputText label="Ticket Price:" value='#{eventBean.price}' fieldSize="sm"/>
+                                    <b:inputText label="Event Description:" value='#{eventBean.targetEvent.description}' fieldSize="sm" required="true"/>
+                                </div>
+                                <div>
+                                    <b:dateTimePicker value="#{eventBean.targetEvent.date}" required="true"/>
+                                </div>
+                                <div class="form-group">
+                                    <b:inputText label="Ticket Price:" value='#{eventBean.targetEvent.price}' fieldSize="sm" required="true"/>
                                 </div> 
                                 <div class="form-group">
-                                    <b:inputText label="Security requirement:" value='#{eventBean.security}' fieldSize="sm" />
+                                    <b:inputText label="Number of places:" value='#{eventBean.targetEvent.nbPlace}' fieldSize="sm" required="true"/>
                                 </div>
-                                <div class="form-group">
-                                    <b:inputText label="Number of places:" value='#{eventBean.nbPlace}' fieldSize="sm"/>
-                                 </div> 
-                                <div class="form-group">
-                                    <b:inputText label="Status"  value="#{eventBean.status}" fieldSize="sm"/> 
-                                </div>
-                            <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"/> 
+                                <b:row>
+                                    <b:column col-md="6">
+                                        <h:outputLabel value=" Select the Security requirement:" for="sec" />
+                                         <b:selectMultiMenu value="#{eventBean.targetEvent.security}" required="true" id="sec"> 
+                                            <f:selectItem itemLabel="Covid Certificate" itemValue="Covid Certificate" />
+                                            <f:selectItem itemLabel="Mask" itemValue="Mask" />
+                                            <f:selectItem itemLabel="Covid test" itemValue="Covid test" />
+                                            <f:selectItem itemLabel="Mask no Obligatory " itemValue="Mask no Obligatory " />
+                                            <f:selectItem itemLabel="ID Card " itemValue="ID Card" />
+                                            <f:selectItem itemLabel="No Food " itemValue="No Food" />
+                                        </b:selectMultiMenu>
+                                    </b:column>       
+                                    <b:column col-md="6">
+                                        <h:outputLabel value=" Select the Status:" for="state" />
+                                        <b:selectMultiMenu value="#{eventBean.targetEvent.status}" required="true" id="state"> 
+                                            <f:selectItem itemLabel="To come" itemValue="To come" />
+                                            <f:selectItem itemLabel="Selling" itemValue="Sellin" />
+                                            <f:selectItem itemLabel="Sold out" itemValue="Sold out" />
+                                            <f:selectItem itemLabel="Past" itemValue="Past" />
+                                        </b:selectMultiMenu>
+                                    </b:column>      
+                                </b:row> 
                             <b:commandButton action="#{eventBean.addEvent()}" value="Save" onclick="alert('Event Saved');" look="success" icon="chevron-right" iconAlign="right" style="float:right;"/>         
                         </h:form>
                  </b:column>

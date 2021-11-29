@@ -17,6 +17,7 @@ import java.util.Date;
 public class Event {
     
     private String name = "";
+    private String img = "";
     private Date date = new Date();
     private String location = "";
     private String description = "";
@@ -25,8 +26,9 @@ public class Event {
     private String security = "";    
     private String status = "";
     
-    public Event(String name, Date _date, String location, String description, double price,int _nbplace,String securityList,String statusList) {
+    public Event(String name,String img, Date _date, String location, String description, double price,int _nbplace,String securityList,String statusList) {
         this.name = name;
+        this.img = img;
         this.date = _date;
         this.location = location;
         this.description = description;
@@ -39,6 +41,7 @@ public class Event {
     
     public Event() {
         this.name = "";
+        this.img = "";
         this.date = null;
         this.location = "";
         this.description = "";
@@ -56,6 +59,13 @@ public class Event {
 
     public void setName(String name ){
         this.name = name;
+    }
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img ){
+        this.img = img;
     }
     public Date getDate() {
         

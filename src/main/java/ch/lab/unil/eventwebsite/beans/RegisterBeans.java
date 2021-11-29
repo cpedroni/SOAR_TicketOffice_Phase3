@@ -10,13 +10,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 /**
  *
  * @author valerie
  */
 @Named(value = "registerBean")
 @SessionScoped
-public class RegisterBeans implements Serializable {
+/*public class RegisterBeans implements Serializable {
         private  String firstname="";
         private  String lastname="";
         private  String username="";
@@ -24,9 +27,23 @@ public class RegisterBeans implements Serializable {
         private  String password="";
         private  String  phonenumber="";
         private  String userRole="";
-        private   ArrayList<Event> saleTicketList= new ArrayList<>();
-    
+        private   ArrayList<Event> saleTicketList= new ArrayList<>(); */
 
+public class RegisterBeans implements Serializable {
+    
+    @PersistenceContext(unitName = "soar")
+    private EntityManager em;
+    
+    private  String firstname="";
+    private  String lastname="";
+    private  String username="";
+    private  String email="";
+    private  String password="";
+    private  String  phonenumber="";
+    private  String userRole="";
+    private   ArrayList<Event> saleTicketList= new ArrayList<>();
+    
+    @Transactional
     public String createNewUser()throws DoesNotExistExeeption,AlreadyExistException  {
         
             if (!emailExists() && !usernameExists()) {

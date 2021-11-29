@@ -30,6 +30,17 @@ public class EventBeans implements Serializable  {
          }else{
              return "/seller page/SellerHomePage.xhtml?faces-redirect=true";
          }    
+
+    }
+     public String getOneEventCustomer(Event _e){
+        
+        //targetEvent = database.getInstance().getSpecifyEvent(_e);
+        setTargetEvent(database.getInstance().getSpecifyEvent(_e));
+         if(database.getInstance().getSpecifyEvent(_e) != null){
+             return "/customer page/CustomerSeeOneEvent.xhtml?param1="+targetEvent+"&faces-redirect=true";
+         }else{
+             return "/seller page/CustomerHomePage.xhtml?faces-redirect=true";
+         }    
          
 
     }

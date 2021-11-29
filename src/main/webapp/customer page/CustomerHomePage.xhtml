@@ -38,22 +38,16 @@
                     <b:dataTableColumn value="#{event.getDescription()}" label="Description" />
                     <b:dataTableColumn value="#{event.getPrice()}"  label="Price (CHF)"/>
                     <b:dataTableColumn value="#{event.getNbPlace()}"  label="Places (CHF)"/>
+                    <b:dataTableColumn>
+                    <b:commandButton value="watch" iconAwesome="fa-eye" 
+                                         action="#{eventBean.getOneEventCustomer(event)}">
+                        <f:param id="eventname" name="paramName" value="#{event.getName()}"/>
+                    </b:commandButton>
+                    </b:dataTableColumn>
             </b:dataTable>  
             </b:form>    
         </b:container>
         <b:container style="padding-bottom: 30px;">
-            <b:column span="2">
-                <b:container>
-                    <b:row>
-                        <b:link outcome="CustomerSeeOneEvent.xhtml?faces-redirect=true">
-                            <img src="https://www.homewallmurals.co.uk/ekmps/shops/allwallpapers/images/avengers-infinity-war-61x91-5cm-movie-poster-31650-1-p.jpg" width="100" />
-                        </b:link>
-                    </b:row>
-                    <b:row>
-                        <div>Avengers</div>
-                    </b:row>
-                </b:container>
-            </b:column>
         </b:container>
      </h:body>
      <b:navBar brand="©2013-2018 TheCoder4Eu" fixed="bottom" sticky="true" style="background-color: rgb(245, 223, 77);"/>

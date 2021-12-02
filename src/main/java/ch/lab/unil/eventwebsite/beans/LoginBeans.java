@@ -10,7 +10,7 @@ import javax.inject.Named;
 /** 
  *
  * @author valer
- */
+ 
 @Named(value = "loginBean")
 @SessionScoped
 public class LoginBeans implements Serializable {
@@ -42,25 +42,18 @@ public class LoginBeans implements Serializable {
     }
 
     
-    /**
-     * 
-     * @return a false after setting the current user in the session out
-     */
+   
      public String logUserOut() {
         setCurrentUser(null);
         return "/main page/Login.xhtml?faces-redirect=true"; 
     }
 
-    /**
-     * @return the username
-     */
+    
     public String getUsername() {
         return username;
     }
 
-    /**
-     * @param username the username to set
-     */
+   
     public void setUsername(String username) {
         this.username = username;
     }
@@ -102,3 +95,4 @@ public class LoginBeans implements Serializable {
         
     }
 }
+*/

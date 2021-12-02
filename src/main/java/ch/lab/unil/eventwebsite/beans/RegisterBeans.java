@@ -1,17 +1,17 @@
-
 package ch.lab.unil.eventwebsite.beans;
 
-import ch.lab.unil.eventwebsite.Database.database;
 import ch.lab.unil.eventwebsite.models.Event;
 import ch.lab.unil.eventwebsite.models.User;
 import ch.lab.unil.eventwebsite.Exceptions.AlreadyExistException;
 import ch.lab.unil.eventwebsite.Exceptions.DoesNotExistExeeption;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 /**
  *
@@ -19,19 +19,10 @@ import javax.transaction.Transactional;
  */
 @Named(value = "registerBean")
 @SessionScoped
-/*public class RegisterBeans implements Serializable {
-        private  String firstname="";
-        private  String lastname="";
-        private  String username="";
-        private  String email="";
-        private  String password="";
-        private  String  phonenumber="";
-        private  String userRole="";
-        private   ArrayList<Event> saleTicketList= new ArrayList<>(); */
 
 public class RegisterBeans implements Serializable {
-    
-    @PersistenceContext(unitName = "soar")
+
+    @PersistenceContext(unitName = "ET_PU")
     private EntityManager em;
     
     private  String firstname="";
@@ -39,56 +30,46 @@ public class RegisterBeans implements Serializable {
     private  String username="";
     private  String email="";
     private  String password="";
-    private  String  phonenumber="";
+    private  String  phonenumber = "";
     private  String userRole="";
-    private   ArrayList<Event> saleTicketList= new ArrayList<>();
+    private  List<Event> saleTicketList = new ArrayList<>();
     
     @Transactional
-    public String createNewUser()throws DoesNotExistExeeption,AlreadyExistException  {
-        
+    public String createNewUser() throws AlreadyExistException, DoesNotExistExeeption  {
+      
             if (!emailExists() && !usernameExists()) {
-                 boolean result = database.getInstance().insertUser(new User(firstname,lastname,username,email,password,phonenumber,userRole));
-                 if(result == true){
-                     return "/main page/Login.xhtml?param1=registered&faces-redirect=true";
-                 }else{
-                     return "/main page/Signup.xhtml?param1=notregistered&faces-redirect=true";
-                 }
+                    User newUser = new User();
+                    newUser.setUsername(username);
+                    newUser.setFirstname(firstname);
+                    newUser.setLastname(lastname);
+                    newUser.setEmail(email);
+                    newUser.setPassword(password);
+                    newUser.setPhonenumber(phonenumber);
+                    newUser.setUserRole(userRole); 
+                    em.persist(newUser);
+                    
+                    //empty
+                    svuota();
+                   return "/main page/Login.xhtml?param1=registered&faces-redirect=true";
             }else{
-                 return "/main page/Signup.xhtml?param1=notregistered&faces-redirect=true";
+                svuota();
+                return "/main page/Signup.xhtml?param1=notregistered&faces-redirect=true";
             }
-       
-    }
     
-    public User getUserbyUsername(String username){
-        
-        User targetUser  = new User();
-        if (!username.equals(""))
-        { 
-             targetUser =  database.getInstance().getUserByHisUserName(username.trim());
-        }
-        return targetUser;
     }
     
     private boolean usernameExists() throws DoesNotExistExeeption {
-        for (User user : database.getInstance().getUsers()) {
-            if (user.getUsername().equals(username)) {
-                return true;
-            }
-        }
-        return false;
+        Query query = em.createNamedQuery("User.findByUsername");
+        List<User> users = query.setParameter("username", username).getResultList();
+        return users.size() > 0;
     }
  
     private boolean emailExists() throws AlreadyExistException {
-        for (User user : database.getInstance().getUsers()) {
-            if (user.getEmail().equals(email)) {
-                throw new AlreadyExistException("The email " + email + " already in use.");
-            }
-        }
-        return false;
+       Query query = em.createNamedQuery("User.findByEmail");
+        List<User> users = query.setParameter("email",email).getResultList();
+        return users.size() > 0; 
     }
-   
-
-    public  String getFirstname() {
+         public  String getFirstname() {
         return firstname;
     }
 
@@ -129,29 +110,38 @@ public class RegisterBeans implements Serializable {
     }
 
    
-    public  String getPhonenumber() {
+    public String getPhonenumber() {
         return phonenumber;
     }
 
     
-    public  void setPhonenumber(String _phonenumber) {
-        this.phonenumber = _phonenumber;
+    public void setPhonenumber(String phonenumber){
+        this.phonenumber = phonenumber;
     }
 
-    public  String getUserRole() {
+    public String getUserRole() {
         return this.userRole;
     }
 
     public  void setUserRole(String _userRole) {
         this.userRole = _userRole;
     }
-    public ArrayList<Event> getSaleTicketList() {
+    public List<Event> getSaleTicketList() {
         return saleTicketList;
     }
 
-    public void setSaleTicketList(ArrayList<Event> _saleTicketList) {
+    public void setSaleTicketList(List<Event> _saleTicketList) {
          this.saleTicketList = _saleTicketList;
     }
+
+    private void svuota() {
+        this.firstname="";
+        this.lastname="";
+        this.username="";
+        this.email="";
+        this. password="";
+        this.phonenumber = "";
+        this.userRole="";
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
-
-

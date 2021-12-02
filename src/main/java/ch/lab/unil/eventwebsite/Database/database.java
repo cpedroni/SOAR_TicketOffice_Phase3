@@ -6,10 +6,7 @@ import ch.lab.unil.eventwebsite.models.User;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- *
- * @author valer
- */
+
 public class database {
     
     private ArrayList<User> userList = new ArrayList<User>();
@@ -17,10 +14,8 @@ public class database {
     private static database instance = null;
    
 
-    /**
-     * initialize  database with some users and some events 
-     * by adding users and event in the corresponding list
-     */
+   /**
+     
 
     public database(){
         userList.add(new User("Firstuser1", "Lastuser1", "user1", "user1@mail.ch","user1","458487484","seller"));
@@ -255,18 +250,11 @@ public class database {
        else{return null;}
    }
     
-    /**
-     *
-     * @return
-     */
+   
     public ArrayList<Event> getAllEvent(){
        return eventList;
     }
-     
-    /**
-     * return a list of expired event by searching into the db those which are in the status expired
-     * @return 
-     */
+   
     public ArrayList<Event> getEventInSold() {
         ArrayList<Event> availableEvents = new ArrayList<Event>() ;
         for(Event event:eventList){
@@ -330,7 +318,6 @@ public class database {
         }
         return result;
     }
-
+*/
     
 }
-

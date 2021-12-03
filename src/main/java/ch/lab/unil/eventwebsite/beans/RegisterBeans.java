@@ -47,12 +47,11 @@ public class RegisterBeans implements Serializable {
                     newUser.setPhonenumber(phonenumber);
                     newUser.setUserRole(userRole); 
                     em.persist(newUser);
-                    
                     //empty
-                    svuota();
+                    //svuota();
                    return "/main page/Login.xhtml?param1=registered&faces-redirect=true";
             }else{
-                svuota();
+                //svuota();
                 return "/main page/Signup.xhtml?param1=notregistered&faces-redirect=true";
             }
     

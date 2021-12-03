@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name= "User.findByPhonenumber", query = "SELECT u FROM User u WHERE u.phonenumber = :phonenumber"),
     @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole")})
-  //  @NamedQuery(name = "User.findBySaleticketlist", query = "SELECT u FROM User u WHERE u.saleTicketList = :saleTicketList")})
+  //@NamedQuery(name = "User.findBySaleticketlist", query = "SELECT u FROM User u WHERE u.saleTicketList = :saleTicketList")})
 
 public class User implements Serializable {
    
@@ -81,6 +81,9 @@ public class User implements Serializable {
     
    
     public User(){}
+     public int getId() {
+        return userId;
+    }
     public String getFirstname() {
         return firstname;
     }

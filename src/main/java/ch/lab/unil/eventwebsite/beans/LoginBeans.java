@@ -1,6 +1,5 @@
 package ch.lab.unil.eventwebsite.beans;
 import ch.lab.unil.eventwebsite.Exceptions.DoesNotExistExeeption;
-import ch.lab.unil.eventwebsite.Database.database;
 import ch.lab.unil.eventwebsite.models.User;
 import java.io.Serializable;
 import java.util.List;
@@ -20,7 +19,7 @@ import javax.persistence.Query;
 @SessionScoped
 public class LoginBeans implements Serializable {
     
-    @PersistenceContext(unitName = "soar")
+    @PersistenceContext(unitName = "ET_PU")
     private EntityManager em;
 
     private static User currentUser;
@@ -29,17 +28,23 @@ public class LoginBeans implements Serializable {
     
    // defaut constructor
     
-    public String userLogsIn() {
+    public String logUserIn() {
         try {
             User user = findByUsername();
             if (user != null && user.isPasswordCorrect(password)) {
                 currentUser = user;
-                return "/UserPage/UserMainPage.xhtml?faces-redirect=true";
+                if(currentUser.getUserRole().equalsIgnoreCase("seller"))
+                   return "/seller page/SellerHomePage.xhtml?faces-redirect=true";
+                else
+                   return "/customer page/CustomerHomePage.xhtml?faces-redirect=true";
+            }else{
+                return "/main page/Login.xhtml?param='user=null'faces-redirect=true";
             }
         } catch (DoesNotExistExeeption ex) {
             System.out.println(ex.getMessage());
+            return "/main page/LoginPage.xhtml?faces-redirect=true";
         }
-        return "/MainPage/LoginPage.xhtml?faces-redirect=true";
+        
     }
 
     protected User findByUsername() throws DoesNotExistExeeption {

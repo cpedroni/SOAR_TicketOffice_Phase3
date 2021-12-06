@@ -34,8 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name= "User.findByPhonenumber", query = "SELECT u FROM User u WHERE u.phonenumber = :phonenumber"),
     @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole")})
-  //@NamedQuery(name = "User.findBySaleticketlist", query = "SELECT u FROM User u WHERE u.saleTicketList = :saleTicketList")})
-
+    //@NamedQuery(name = "User.UpdatePassword", query = "UPDATE User u SET u.password = test2 "+ "WHERE u.userId = :userId")
 public class User implements Serializable {
    
     private static final long serialVersionUID = 1L;
@@ -56,14 +55,13 @@ public class User implements Serializable {
     @Size(max = 50)
     @Column(name = "USERNAME")
     private String username;
-    
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+
     @Size(max = 50)
     @Column(name = "EMAIL")
     private String email;
     @Column(name = "PASSWORD")
     private String password;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+ 
     @Column(name = "PHONE_NUMBER")
     private String phonenumber;
     

@@ -11,7 +11,7 @@
             <b:navbarLinks style="float:none;">
                 <b:navLink icon="home" value ="Home" outcome="SellerHomePage.xhtml?faces-redirect=true"></b:navLink>  
                 <b:dropMenu icon-awesome="fa-user" value="My profile">
-                    <b:navLink icon-awesome="fa-folder-open " value="My information" outcome="SeeCustomerProfile.xhtml?faces-redirect=true"></b:navLink> 
+                    <b:navLink icon-awesome="fa-folder-open " value="My information" outcome="UserProfle.xhtml?faces-redirect=true"></b:navLink> 
                     <b:navLink></b:navLink>
                     <b:navLink icon-awesome="fa-sign-out " value="Log out" outcome="/main page/Login.xhtml?faces-redirect=true"></b:navLink>
                 </b:dropMenu>
@@ -32,10 +32,10 @@
                     <h2 align="center"> My Information</h2>
 
                                 <div class="form-group">
-                                    <p>FirstName : #{loginBean.currentUser.firstname}</p>
+                                    <p>Firstname : #{loginBean.currentUser.getFirstname()}</p>
                                 </div> 
                                  <div class="form-group">
-                                     <p>LastName: #{loginBean.currentUser.lastname}</p>
+                                     <p>Lastname: #{loginBean.currentUser.lastname}</p>
                                 </div>
                                 <div class="form-group">
                                     <p>Username: #{loginBean.currentUser.username}</p>

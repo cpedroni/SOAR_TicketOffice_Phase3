@@ -46,8 +46,7 @@ public class RegisterBeans implements Serializable {
                     newUser.setPassword(password);
                     newUser.setPhonenumber(phonenumber);
                     newUser.setUserRole(userRole); 
-                    em.persist(newUser);
-                    //empty
+                    em.persist(newUser);     
                     //svuota();
                    return "/main page/Login.xhtml?param1=registered&faces-redirect=true";
             }else{
@@ -141,6 +140,5 @@ public class RegisterBeans implements Serializable {
         this. password="";
         this.phonenumber = "";
         this.userRole="";
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

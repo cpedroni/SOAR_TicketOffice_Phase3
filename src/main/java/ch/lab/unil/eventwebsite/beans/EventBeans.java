@@ -3,7 +3,12 @@ package ch.lab.unil.eventwebsite.beans;
 import ch.lab.unil.eventwebsite.Exceptions.DoesNotExistExeeption;
 import ch.lab.unil.eventwebsite.models.Event;
 import java.io.Serializable;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -69,18 +74,6 @@ public class EventBeans implements Serializable  {
          Query query = em.createNamedQuery("Event.findAll");
           return new ArrayList<Event>(query.getResultList());
     }
-    // TODO  define first in the event model the method to call
-    /**
-    public ArrayList<Event> getListOfAvailableEventsInSold(){
-        return database.getInstance().getEventInSold();
-}
-
-
-    public ArrayList<Event> getListOfAvailableEvents(){
-        return database.getInstance().getAllAvailableEvent();
-    }
-  
-  **/
     
     // this method is ok
     @Transactional
@@ -96,32 +89,38 @@ public class EventBeans implements Serializable  {
         }
     }
     // this method is ok
+    
     @Transactional
-    public String addEvent(){
-        
-        try {
-            if (doesEventNotExistInDb(targetEvent.getEventId())) { 
+    public String addEvent() throws DoesNotExistExeeption{
+
+            if(doesEventExistInDb(targetEvent.getEventId()) == false){ 
+                 // problem with datetime object 
+                //targetEvent.setDate(null);
                 em.persist(targetEvent);
-            }
-        } catch (DoesNotExistExeeption ex) {
-            return "/seller page/SellerHomePage.xhtml?param ="+ex.getMessage()+"fail&faces-redirect=true";
+                return "/seller page/SellerHomePage.xhtml?param =insertok&faces-redirect=true";
+            }else{
+                return "/seller page/SellerHomePage.xhtml?param=fail&faces-redirect=true";
         }
-        return "/seller page/SellerHomePage.xhtml?param =insertok&faces-redirect=true";
+        
          
     }
      
-    
+    @Transactional
     public String buyTicket(Event target){ 
         return "/seller page/BuyTicket.xhtml?param1="+target+"&faces-redirect=true";
     }
     // done
     @Transactional
     public String confirmticket(Event target){
-            if (doesEventExistInDb(target.getEventId())) { 
-                em.merge(target); // the merge does nsert and update
-                return "/seller page/SellerHomePage.xhtml?param1=error&faces-redirect=true";
+            if (doesEventExistInDb(target.getEventId())) {
+                int newqta = target.getNbPlace() - 1;
+                String sqlq = "UPDATE Event x SET x.nbplace = '"+newqta+"'" + " WHERE x.eventId =:eventId";
+                Query query = em.createQuery(sqlq);
+                query.setParameter("eventId",target.getEventId());
+                query.executeUpdate(); 
+                return "/seller page/BuyTicket.xhtml?param1=success&faces-redirect=true";  
             }else{
-               return "/seller page/BuyTicket.xhtml?param1=error&faces-redirect=true";
+                return "/seller page/SellerHomePage.xhtml?param1=error&faces-redirect=true";
             }    
     }
     // done
@@ -173,7 +172,12 @@ public class EventBeans implements Serializable  {
         throw new DoesNotExistExeeption("Aucun Resultat pour :"+element); //To change body of generated methods, choose Tools | Templates.
     }
     
+    private String getDateTime(Date date) {
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    return dateFormat.format(date);
+}
     
+   
     // getter and setter
      public void setTargetEvent(Event e){
         this.targetEvent = e;

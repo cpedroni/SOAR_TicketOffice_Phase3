@@ -3,12 +3,12 @@ import ch.lab.unil.eventwebsite.Exceptions.DoesNotExistExeeption;
 import ch.lab.unil.eventwebsite.models.User;
 import java.io.Serializable;
 import java.util.List;
-//import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 /** 
  *
@@ -32,8 +32,9 @@ public class LoginBeans implements Serializable {
         try {
             User user = findByUsername();
             if (user != null && user.isPasswordCorrect(password)) {
+                //setCurrentUser(user);
                 currentUser = user;
-                if(currentUser.getUserRole().equalsIgnoreCase("seller"))
+                if(getCurrentUser().getUserRole().equalsIgnoreCase("seller"))
                    return "/seller page/SellerHomePage.xhtml?faces-redirect=true";
                 else
                    return "/customer page/CustomerHomePage.xhtml?faces-redirect=true";
@@ -55,15 +56,13 @@ public class LoginBeans implements Serializable {
         }
         throw new DoesNotExistExeeption("The user " + username + " does not exist.");
     }
-
-    
-   
+ 
      public String logUserOut() {
         setCurrentUser(null);
         return "/main page/Login.xhtml?faces-redirect=true"; 
     }
+     
 
-    
     public String getUsername() {
         return username;
     }
@@ -84,7 +83,7 @@ public class LoginBeans implements Serializable {
     }
 
     
-    public User getCurrentUser() {
+    public User getCurrentUser(){
         return currentUser;
     }
 
@@ -93,13 +92,18 @@ public class LoginBeans implements Serializable {
         this.currentUser = _currentUser;
     }
 
-
+    @Transactional
     public String resetPassword() throws  DoesNotExistExeeption{
         
         User user = findByUsername();
         if (user != null) {
             if(password.length()>0){
+                //em.merge(user); does not work
                 user.setPassword(password);
+                String sqlq = "UPDATE User x SET x.password = '"+password+"'" + " WHERE x.userId =:userId";
+                Query query = em.createQuery(sqlq);
+                query.setParameter("userId",user.getId());
+                query.executeUpdate();
                 return "/main page/ResetPassword.xhtml?param=true&faces-redirect=true";
             }else{
                 return "/main page/ResetPassword.xhtml?param=false&faces-redirect=true";

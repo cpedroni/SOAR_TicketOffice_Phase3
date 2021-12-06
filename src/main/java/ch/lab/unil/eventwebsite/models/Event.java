@@ -42,7 +42,7 @@ public class Event implements Serializable {
     @Column(name = "EVENT_NAME")
     private String name;
   
-    @Size(max = 50)
+    
     @Column(name = "EVENT_DATE")
     private Date date;
     
@@ -74,6 +74,14 @@ public class Event implements Serializable {
     private String status;
   
     public Event() {
+        this.name = "";
+        this.date = new Date();
+        this.description = "";
+        this.img = "";
+        this.nbplace = 0;
+        this.security = "";
+        this.status = "";
+        this.price = 0.0;
     }
 
     public Event(Integer eventId) {
@@ -85,7 +93,7 @@ public class Event implements Serializable {
     }
  
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name ){

@@ -40,9 +40,11 @@
                                 <div class="form-group">
                                     <b:inputText label="Event Description:" value='#{eventBean.targetEvent.description}' fieldSize="sm" required="true"/>
                                 </div>
+                            <!--
                                 <div>
-                                    <b:dateTimePicker value="#{eventBean.targetEvent.date}" required="true"/>
+                                    <b:dateTimePicker format= "YYYY-MM-DD HH:MM:SS"  showTime="true" locale="it" value="#{eventBean.targetEvent.date}" "/>
                                 </div>
+                            -->
                                 <div class="form-group">
                                     <b:inputText label="Ticket Price:" value='#{eventBean.targetEvent.price}' fieldSize="sm" required="true"/>
                                 </div> 

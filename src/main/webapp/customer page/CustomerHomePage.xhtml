@@ -31,7 +31,7 @@
         </b:jumbotron>
         <b:container>
             <b:form>
-                <b:dataTable value="#{eventBean.listOfAvailableEvents}" var="event" excel="true" csv="true" pdf="true"  print="true" selected-items="rows">
+                <b:dataTable value="#{eventBean.listOfAllEvents}" var="event" excel="true" csv="true" pdf="true"  print="true" selected-items="rows">
                     <b:dataTableColumn label="Image">
                         <img src="#{event.getImg()}" width="50" />
                     </b:dataTableColumn>

@@ -4,7 +4,6 @@
     <jta-data-source>jdbc/EventTicketWebSite-v2</jta-data-source>
     <class>ch.lab.unil.eventwebsite.models.Event</class>
     <class>ch.lab.unil.eventwebsite.models.User</class>
-    <class>ch.lab.unil.eventwebsite.models.User_1</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>

@@ -2,6 +2,7 @@ package ch.lab.unil.eventwebsite.beans;
 
 import ch.lab.unil.eventwebsite.models.Event;
 import ch.lab.unil.eventwebsite.models.User;
+import ch.lab.unil.eventwebsite.client.PersistenceClient;
 import ch.lab.unil.eventwebsite.Exceptions.AlreadyExistException;
 import ch.lab.unil.eventwebsite.Exceptions.DoesNotExistExeeption;
 import java.io.Serializable;
@@ -21,9 +22,6 @@ import javax.transaction.Transactional;
 @SessionScoped
 
 public class RegisterBeans implements Serializable {
-
-    @PersistenceContext(unitName = "ET_PU")
-    private EntityManager em;
     
     private  String firstname="";
     private  String lastname="";
@@ -35,39 +33,37 @@ public class RegisterBeans implements Serializable {
     private  List<Event> saleTicketList = new ArrayList<>();
     
     @Transactional
-    public String createNewUser() throws AlreadyExistException, DoesNotExistExeeption  {
-      
-            if (!emailExists() && !usernameExists()) {
-                    User newUser = new User();
-                    newUser.setUsername(username);
-                    newUser.setFirstname(firstname);
-                    newUser.setLastname(lastname);
-                    newUser.setEmail(email);
-                    newUser.setPassword(password);
-                    newUser.setPhonenumber(phonenumber);
-                    newUser.setUserRole(userRole); 
-                    em.persist(newUser);     
-                    //svuota();
-                   return "/main page/Login.xhtml?param1=registered&faces-redirect=true";
-            }else{
-                //svuota();
-                return "/main page/Signup.xhtml?param1=notregistered&faces-redirect=true";
+    public String createAUser() throws AlreadyExistException, DoesNotExistExeeption {
+        try {
+            boolean a = !PersistenceClient.getInstance().emailExists(email);
+            boolean b = PersistenceClient.getInstance().getUserByName(username) == null;
+            if (a && b) {
+                User newUser = new User();
+                newUser.setUsername(username);
+                newUser.setFirstname(firstname);
+                newUser.setLastname(lastname);
+                newUser.setEmail(email);
+                newUser.setPassword(password);
+                newUser.setPhonenumber(phonenumber);
+                newUser.setUserRole(userRole); 
+                PersistenceClient.getInstance().createUser(newUser);
             }
-    
+            } catch (AlreadyExistException ex) {
+                System.out.println(ex.getMessage());
+            }
+        // empty values
+        this.email = "";
+        this.username = "";
+        this.firstname = "";
+        this.lastname = "";
+        this.password = "";
+        this.phonenumber = "";
+        this.userRole = "";
+        return "/main page/Login.xhtml?param1=registered&faces-redirect=true";
+        
     }
     
-    private boolean usernameExists() throws DoesNotExistExeeption {
-        Query query = em.createNamedQuery("User.findByUsername");
-        List<User> users = query.setParameter("username", username).getResultList();
-        return users.size() > 0;
-    }
- 
-    private boolean emailExists() throws AlreadyExistException {
-       Query query = em.createNamedQuery("User.findByEmail");
-        List<User> users = query.setParameter("email",email).getResultList();
-        return users.size() > 0; 
-    }
-         public  String getFirstname() {
+    public  String getFirstname() {
         return firstname;
     }
 

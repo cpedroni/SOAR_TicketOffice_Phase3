@@ -1,6 +1,7 @@
 package ch.lab.unil.eventwebsite.beans;
 import ch.lab.unil.eventwebsite.Exceptions.DoesNotExistExeeption;
 import ch.lab.unil.eventwebsite.models.User;
+import ch.lab.unil.eventwebsite.client.PersistenceClient;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
@@ -19,21 +20,18 @@ import javax.transaction.Transactional;
 @SessionScoped
 public class LoginBeans implements Serializable {
     
-    @PersistenceContext(unitName = "ET_PU")
-    private EntityManager em;
+   
 
     private static User currentUser;
     private String username = "";
     private String password = "";
     
    // defaut constructor
-    
-    public String logUserIn() {
+    public String userLogsIn() {
         try {
-            User user = findByUsername();
-            if (user != null && user.isPasswordCorrect(password)) {
-                //setCurrentUser(user);
-                currentUser = user;
+            User u = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
+            if (u != null) {
+                currentUser = u;
                 if(getCurrentUser().getUserRole().equalsIgnoreCase("seller"))
                    return "/seller page/SellerHomePage.xhtml?faces-redirect=true";
                 else
@@ -43,21 +41,11 @@ public class LoginBeans implements Serializable {
             }
         } catch (DoesNotExistExeeption ex) {
             System.out.println(ex.getMessage());
-            return "/main page/LoginPage.xhtml?faces-redirect=true";
         }
-        
+        return "/MainPage/LoginPage.xhtml?faces-redirect=true";
     }
-
-    protected User findByUsername() throws DoesNotExistExeeption {
-        Query query = em.createNamedQuery("User.findByUsername", User.class);
-        List<User> users = query.setParameter("username", username).getResultList();
-        if (users.size() > 0) {
-            return users.get(0);
-        }
-        throw new DoesNotExistExeeption("The user " + username + " does not exist.");
-    }
- 
-     public String logUserOut() {
+     
+    public String logUserOut() {
         setCurrentUser(null);
         return "/main page/Login.xhtml?faces-redirect=true"; 
     }

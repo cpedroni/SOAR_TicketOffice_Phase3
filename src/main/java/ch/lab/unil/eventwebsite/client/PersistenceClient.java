@@ -8,6 +8,7 @@ import java.util.List;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -63,16 +64,16 @@ public class PersistenceClient {
         throw new DoesNotExistExeeption("User " + username + " does not exist.");
     }
     
-    public boolean emailExists(String email) throws AlreadyExistsException {
-        return client.target(USERS_URL + "/emailExists/" + email).request().get().readEntity(Boolean.class);
+    public boolean emailExists(String email) throws AlreadyExistException {
+        return client.target(USER_URL + "/emailExists/" + email).request().get().readEntity(Boolean.class);
     }
     
-    public Users getUserById(int id) {
+    public User getUserById(int id) {
         return parseUser(client.target(USER_URL + "/find/" + id).request().get().readEntity(String.class));
     }
 
-    public Users getUserByName(String username) {
-        Users u = parseUser(client.target(USER_URL + "/findByName/" + username).request().get(String.class));
+    public User getUserByName(String username) {
+        User u = parseUser(client.target(USER_URL + "/findByName/" + username).request().get(String.class));
         return u;
     }
 
@@ -88,9 +89,9 @@ public class PersistenceClient {
 
             User user = new User();
             user.setEmail(e.getElementsByTagName("email").item(0).getTextContent());
-            user.setFirstName(e.getElementsByTagName("firstName").item(0).getTextContent());
-            user.setLastName(e.getElementsByTagName("lastName").item(0).getTextContent());
-            user.setPassword(Integer.valueOf(e.getElementsByTagName("password").item(0).getTextContent()));
+            user.setFirstname(e.getElementsByTagName("firstName").item(0).getTextContent());
+            user.setLastname(e.getElementsByTagName("lastName").item(0).getTextContent());
+            user.setPassword(e.getElementsByTagName("password").item(0).getTextContent());
             user.setUserId(Integer.valueOf(e.getElementsByTagName("userId").item(0).getTextContent()));
             user.setUsername(e.getElementsByTagName("username").item(0).getTextContent());
 
@@ -105,15 +106,87 @@ public class PersistenceClient {
         }
         Element e = (Element) parseDocument(xml).getElementsByTagName("user").item(0);
 
-        Users user = new Users();
+        User user = new User();
         user.setEmail(e.getElementsByTagName("email").item(0).getTextContent());
-        user.setFirstName(e.getElementsByTagName("firstName").item(0).getTextContent());
-        user.setLastName(e.getElementsByTagName("lastName").item(0).getTextContent());
-        user.setPassword(Integer.valueOf(e.getElementsByTagName("password").item(0).getTextContent()));
+        user.setFirstname(e.getElementsByTagName("firstName").item(0).getTextContent());
+        user.setLastname(e.getElementsByTagName("lastName").item(0).getTextContent());
+        user.setPassword(e.getElementsByTagName("password").item(0).getTextContent());
         user.setUserId(Integer.valueOf(e.getElementsByTagName("userId").item(0).getTextContent()));
         user.setUsername(e.getElementsByTagName("username").item(0).getTextContent());
 
         return user;
+    }
+    
+    public void createEvent(Event event) {
+        client.target(EVENT_URL + "/create").request().post(Entity.entity(event, "application/xml"));
+    }
+
+    public void updateEvent(Event event) {
+        client.target(EVENT_URL + "/edit/" + event.getEventId()).request().put(Entity.entity(event, "application/xml"));
+    }
+
+    public void removeEvent(int id) {
+        client.target(EVENT_URL + "/remove/" + id).request().get().readEntity(String.class);
+    }
+
+    public Event getEventById(int id) {
+        return parseEvent(client.target(EVENT_URL + "/find/" + id).request().get().readEntity(String.class));
+    }
+
+    public Event getEventByName(String eventName) throws DoesNotExistExeeption {
+        Event e = parseEvent(client.target(EVENT_URL + "/findByName/" + eventName).request().get(String.class));
+        if (e != null) {
+            return e;
+        }
+        throw new DoesNotExistExeeption("Event " + eventName + " does not exist.");
+    }
+
+    public List<Event> getAllEvents() {
+        return parseEventList(client.target(EVENT_URL).request().get(String.class));
+    }
+
+    private List<Event> parseEventList(String xml) {
+        List<Event> eventList = new ArrayList<>();
+        NodeList list = parseDocument(xml).getElementsByTagName("events");
+        for (int i = 0; i < list.getLength(); i++) {
+            Element e = (Element) list.item(i);
+
+            Event event = new Event();
+            event.setEventId(Integer.valueOf(e.getElementsByTagName("eventId").item(0).getTextContent()));
+            event.setName(e.getElementsByTagName("eventName").item(0).getTextContent());
+            event.setImg(e.getElementsByTagName("eventImg").item(0).getTextContent());
+            event.setDate(Date.valueOf(e.getElementsByTagName("eventDate").item(0).getTextContent()));
+            event.setLocation(e.getElementsByTagName("eventLocation").item(0).getTextContent());
+            event.setDescription(e.getElementsByTagName("eventDescription").item(0).getTextContent());
+            event.setPrice(Double.valueOf(e.getElementsByTagName("eventPrice").item(0).getTextContent()));
+            event.setNbPlace(Integer.valueOf(e.getElementsByTagName("eventNbPlace").item(0).getTextContent()));
+            event.setSecurity(e.getElementsByTagName("eventName").item(0).getTextContent());
+            event.setStatus(e.getElementsByTagName("eventName").item(0).getTextContent());
+
+            eventList.add(event);
+        }
+        return eventList;
+    }
+
+    private Event parseEvent(String xml) {
+        if (xml.length() == 0) {
+            return null;
+        }
+        Element e = (Element) parseDocument(xml).getElementsByTagName("events").item(0);
+
+        Event event = new Event();
+        event.setEventId(Integer.valueOf(e.getElementsByTagName("eventId").item(0).getTextContent()));
+        event.setName(e.getElementsByTagName("eventName").item(0).getTextContent());
+        event.setImg(e.getElementsByTagName("eventImg").item(0).getTextContent());
+        event.setDate(Date.valueOf(e.getElementsByTagName("eventDate").item(0).getTextContent()));
+        event.setLocation(e.getElementsByTagName("eventLocation").item(0).getTextContent());
+        event.setDescription(e.getElementsByTagName("eventDescription").item(0).getTextContent());
+        event.setPrice(Double.valueOf(e.getElementsByTagName("eventPrice").item(0).getTextContent()));
+        event.setNbPlace(Integer.valueOf(e.getElementsByTagName("eventNbPlace").item(0).getTextContent()));
+        event.setSecurity(e.getElementsByTagName("eventName").item(0).getTextContent());
+        event.setStatus(e.getElementsByTagName("eventName").item(0).getTextContent());
+
+        return event;
     }
     
     private Document parseDocument(String xml) {
@@ -127,5 +200,7 @@ public class PersistenceClient {
         }
         return null;
     }
+    
+   
 
 }

@@ -77,11 +77,14 @@ public class User implements Serializable {
     
 
     
-   
-    public User(){}
-     public int getId() {
+    public int getUserId() {
         return userId;
     }
+    
+    public void setUserId(Integer UserId) {
+        this.firstname = firstname;
+    }
+    
     public String getFirstname() {
         return firstname;
     }

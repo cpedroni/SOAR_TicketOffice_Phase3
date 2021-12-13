@@ -1,3 +1,4 @@
+
 package ch.lab.unil.eventwebsite.beans;
 import ch.lab.unil.eventwebsite.Exceptions.DoesNotExistExeeption;
 import ch.lab.unil.eventwebsite.models.User;
@@ -90,7 +91,7 @@ public class LoginBeans implements Serializable {
                 user.setPassword(password);
                 String sqlq = "UPDATE User x SET x.password = '"+password+"'" + " WHERE x.userId =:userId";
                 Query query = em.createQuery(sqlq);
-                query.setParameter("userId",user.getId());
+                query.setParameter("userId",user.getUserId());
                 query.executeUpdate();
                 return "/main page/ResetPassword.xhtml?param=true&faces-redirect=true";
             }else{

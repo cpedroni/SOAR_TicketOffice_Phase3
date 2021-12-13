@@ -91,6 +91,11 @@ public class Event implements Serializable {
     public Integer getEventId() {
         return eventId;
     }
+    
+    
+    public void setEventId(Integer EventId) {
+        this.eventId = eventId;
+    }
  
     public String getName() {
         return name;
@@ -162,9 +167,6 @@ public class Event implements Serializable {
     public void setStatus(String _status){
         this.status = _status;
     }
-    
-
-
        
 
 }

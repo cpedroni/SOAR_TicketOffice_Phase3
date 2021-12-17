@@ -4,12 +4,8 @@ import ch.lab.unil.eventwebsite.Exceptions.DoesNotExistExeeption;
 import ch.lab.unil.eventwebsite.models.User;
 import ch.lab.unil.eventwebsite.client.PersistenceClient;
 import java.io.Serializable;
-import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 /** 
@@ -30,7 +26,7 @@ public class LoginBeans implements Serializable {
    // defaut constructor
     public String userLogsIn() {
         try {
-            User u = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
+            User u = PersistenceClient.getInstance().checkPassword(username, password);
             if (u != null) {
                 currentUser = u;
                 if(getCurrentUser().getUserRole().equalsIgnoreCase("seller"))
@@ -84,23 +80,13 @@ public class LoginBeans implements Serializable {
     @Transactional
     public String resetPassword() throws  DoesNotExistExeeption{
         
-        User user = findByUsername();
-        if (user != null) {
-            if(password.length()>0){
-                //em.merge(user); does not work
-                user.setPassword(password);
-                String sqlq = "UPDATE User x SET x.password = '"+password+"'" + " WHERE x.userId =:userId";
-                Query query = em.createQuery(sqlq);
-                query.setParameter("userId",user.getUserId());
-                query.executeUpdate();
-                return "/main page/ResetPassword.xhtml?param=true&faces-redirect=true";
-            }else{
-                return "/main page/ResetPassword.xhtml?param=false&faces-redirect=true";
-            }
+        Boolean result = PersistenceClient.getInstance().updatePassword(username, password);
+        if (result == true) {
+            return "/main page/ResetPassword.xhtml?param=true&faces-redirect=true";
         }else{
             return "/main page/ResetPassword.xhtml?param=false&faces-redirect=true";
-            } 
         }
     }
+}
 
 

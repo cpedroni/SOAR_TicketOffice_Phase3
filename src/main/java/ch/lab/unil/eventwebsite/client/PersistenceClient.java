@@ -7,6 +7,8 @@ import ch.lab.unil.eventwebsite.models.User;
 import java.util.List;
 import java.io.IOException;
 import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.ws.rs.client.Client;
@@ -55,10 +57,10 @@ public class PersistenceClient {
     public void updateUser(User user) {
         client.target(USER_URL + "/edit/" + user.getUserId()).request().put(Entity.entity(user, "application/xml"));
     }
-    
-    public User checkPassword(String username, int password) throws DoesNotExistExeeption {
+    // this method has been corrected there was a type mismatch
+    public User checkPassword(String username, String password) throws DoesNotExistExeeption {
         User u = getUserByName(username);
-        if (u.getUsername().equals(username) & u.getPassword() == password) {
+        if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
             return u;
         }
         throw new DoesNotExistExeeption("User " + username + " does not exist.");
@@ -66,6 +68,18 @@ public class PersistenceClient {
     
     public boolean emailExists(String email) throws AlreadyExistException {
         return client.target(USER_URL + "/emailExists/" + email).request().get().readEntity(Boolean.class);
+    }
+    //this method call the service 'updatepwd' and pass the username, a new pasword to change user's password 
+    public boolean updatePassword(String username,String new_pass) {
+        User u = getUserByName(username);
+        int userId = 0;
+         if (u.getUsername().equals(username)) {
+            userId = u.getUserId();
+            return client.target(USER_URL + "/updatepwd/" + userId + "/" + new_pass).request().put(Entity.entity(u, "application/xml")).readEntity(Boolean.class);
+         }else{
+             return false;
+         }
+        
     }
     
     public User getUserById(int id) {
@@ -155,13 +169,19 @@ public class PersistenceClient {
             event.setEventId(Integer.valueOf(e.getElementsByTagName("eventId").item(0).getTextContent()));
             event.setName(e.getElementsByTagName("eventName").item(0).getTextContent());
             event.setImg(e.getElementsByTagName("eventImg").item(0).getTextContent());
-            event.setDate(Date.valueOf(e.getElementsByTagName("eventDate").item(0).getTextContent()));
+            //event.setDate(Date.valueOf(e.getElementsByTagName("eventDate").item(0).getTextContent()));
             event.setLocation(e.getElementsByTagName("eventLocation").item(0).getTextContent());
             event.setDescription(e.getElementsByTagName("eventDescription").item(0).getTextContent());
             event.setPrice(Double.valueOf(e.getElementsByTagName("eventPrice").item(0).getTextContent()));
             event.setNbPlace(Integer.valueOf(e.getElementsByTagName("eventNbPlace").item(0).getTextContent()));
             event.setSecurity(e.getElementsByTagName("eventName").item(0).getTextContent());
             event.setStatus(e.getElementsByTagName("eventName").item(0).getTextContent());
+            try {
+    
+                event.setDate(new SimpleDateFormat("yyyy/MM/dd").parse(e.getElementsByTagName("eventDate").item(0).getTextContent()));
+            } catch (ParseException ex) {
+                System.out.println(ex);
+            }
 
             eventList.add(event);
         }
@@ -178,13 +198,18 @@ public class PersistenceClient {
         event.setEventId(Integer.valueOf(e.getElementsByTagName("eventId").item(0).getTextContent()));
         event.setName(e.getElementsByTagName("eventName").item(0).getTextContent());
         event.setImg(e.getElementsByTagName("eventImg").item(0).getTextContent());
-        event.setDate(Date.valueOf(e.getElementsByTagName("eventDate").item(0).getTextContent()));
+        //event.setDate(Date.valueOf(e.getElementsByTagName("eventDate").item(0).getTextContent()));
         event.setLocation(e.getElementsByTagName("eventLocation").item(0).getTextContent());
         event.setDescription(e.getElementsByTagName("eventDescription").item(0).getTextContent());
         event.setPrice(Double.valueOf(e.getElementsByTagName("eventPrice").item(0).getTextContent()));
         event.setNbPlace(Integer.valueOf(e.getElementsByTagName("eventNbPlace").item(0).getTextContent()));
         event.setSecurity(e.getElementsByTagName("eventName").item(0).getTextContent());
         event.setStatus(e.getElementsByTagName("eventName").item(0).getTextContent());
+         try {
+                event.setDate(new SimpleDateFormat("yyyy/MM/dd").parse(e.getElementsByTagName("eventDate").item(0).getTextContent()));
+            } catch (ParseException ex) {
+                System.out.println(ex);
+            }
 
         return event;
     }

@@ -82,7 +82,7 @@ public class User implements Serializable {
     }
     
     public void setUserId(Integer UserId) {
-        this.firstname = firstname;
+        this.userId = UserId;
     }
     
     public String getFirstname() {

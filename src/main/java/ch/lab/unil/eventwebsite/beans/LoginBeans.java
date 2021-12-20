@@ -15,16 +15,12 @@ import javax.transaction.Transactional;
         
 @Named(value = "loginBean")
 @SessionScoped
-public class LoginBeans implements Serializable {
-    
-   
-
+public class LoginBeans implements Serializable{
     private static User currentUser;
     private String username = "";
     private String password = "";
     
-   // defaut constructor
-    public String userLogsIn() {
+    public String logUserIn() {
         try {
             User u = PersistenceClient.getInstance().checkPassword(username, password);
             if (u != null) {
@@ -39,7 +35,7 @@ public class LoginBeans implements Serializable {
         } catch (DoesNotExistExeeption ex) {
             System.out.println(ex.getMessage());
         }
-        return "/MainPage/LoginPage.xhtml?faces-redirect=true";
+        return "/main page/Login.xhtml?faces-redirect=true";
     }
      
     public String logUserOut() {
@@ -76,8 +72,6 @@ public class LoginBeans implements Serializable {
     public void setCurrentUser(User _currentUser) {
         this.currentUser = _currentUser;
     }
-
-    @Transactional
     public String resetPassword() throws  DoesNotExistExeeption{
         
         Boolean result = PersistenceClient.getInstance().updatePassword(username, password);

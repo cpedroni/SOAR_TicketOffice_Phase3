@@ -10,18 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.transaction.Transactional;
 /**
  *
  * @author valerie
  */
 @Named(value = "registerBean")
 @SessionScoped
-
-public class RegisterBeans implements Serializable {
+public class RegisterBeans implements Serializable{
     
     private  String firstname="";
     private  String lastname="";
@@ -32,8 +27,7 @@ public class RegisterBeans implements Serializable {
     private  String userRole="";
     private  List<Event> saleTicketList = new ArrayList<>();
     
-    @Transactional
-    public String createAUser() throws AlreadyExistException, DoesNotExistExeeption {
+    public String createNewUser() throws AlreadyExistException, DoesNotExistExeeption {
         try {
             boolean a = !PersistenceClient.getInstance().emailExists(email);
             boolean b = PersistenceClient.getInstance().getUserByName(username) == null;
@@ -126,15 +120,5 @@ public class RegisterBeans implements Serializable {
 
     public void setSaleTicketList(List<Event> _saleTicketList) {
          this.saleTicketList = _saleTicketList;
-    }
-
-    private void svuota() {
-        this.firstname="";
-        this.lastname="";
-        this.username="";
-        this.email="";
-        this. password="";
-        this.phonenumber = "";
-        this.userRole="";
     }
 }

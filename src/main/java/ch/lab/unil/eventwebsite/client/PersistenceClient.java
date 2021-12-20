@@ -32,8 +32,8 @@ import org.xml.sax.SAXException;
 
 public class PersistenceClient {
 
-    private static final String EVENT_URL = "http://localhost:8080/eventwebsite/resources/ch.lab.unil.eventwebsite.models.Event";
-    private static final String USER_URL = "http://localhost:8080/eventwebsite/resources/ch.lab.unil.eventwebsite.models.user";
+    private static final String EVENT_URL = "http://localhost:8080/SOAR_TicketOffice_RESTServicesPhase4/resources/ch.lab.unil.eventicketrestfulservice.models.Event";
+    private static final String USER_URL = "http://localhost:8080/SOAR_TicketOffice_RESTServicesPhase4/resources/ch.lab.unil.eventicketrestfulservice.models.User";
 
     private static Client client;
     private static WebTarget target;
@@ -60,7 +60,7 @@ public class PersistenceClient {
     // this method has been corrected there was a type mismatch
     public User checkPassword(String username, String password) throws DoesNotExistExeeption {
         User u = getUserByName(username);
-        if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
+        if (u.getUsername().equals(username) & u.getPassword().equals(password)) {
             return u;
         }
         throw new DoesNotExistExeeption("User " + username + " does not exist.");
@@ -69,6 +69,7 @@ public class PersistenceClient {
     public boolean emailExists(String email) throws AlreadyExistException {
         return client.target(USER_URL + "/emailExists/" + email).request().get().readEntity(Boolean.class);
     }
+    
     //this method call the service 'updatepwd' and pass the username, a new pasword to change user's password 
     public boolean updatePassword(String username,String new_pass) {
         User u = getUserByName(username);
@@ -91,6 +92,8 @@ public class PersistenceClient {
         return u;
     }
 
+    // this method is not used
+    /*
     public List<User> getAllUsers() {
         return parseUserList(client.target(USER_URL).request().get(String.class));
     }
@@ -113,23 +116,26 @@ public class PersistenceClient {
         }
         return userList;
     }
-
+*/
     private User parseUser(String xml) {
+        System.out.print(xml);
         if (xml.length() == 0) {
             return null;
         }
-        Element e = (Element) parseDocument(xml).getElementsByTagName("user").item(0);
+        Element e = (Element) parseDocument(xml).getElementsByTagName("User").item(0);
+         System.out.print(e);
 
         User user = new User();
         user.setEmail(e.getElementsByTagName("email").item(0).getTextContent());
-        user.setFirstname(e.getElementsByTagName("firstName").item(0).getTextContent());
-        user.setLastname(e.getElementsByTagName("lastName").item(0).getTextContent());
+        user.setFirstname(e.getElementsByTagName("firstname").item(0).getTextContent());
+        user.setLastname(e.getElementsByTagName("lastname").item(0).getTextContent());
         user.setPassword(e.getElementsByTagName("password").item(0).getTextContent());
-        user.setUserId(Integer.valueOf(e.getElementsByTagName("userId").item(0).getTextContent()));
+        user.setUserId(Integer.parseInt(e.getElementsByTagName("userId").item(0).getTextContent()));
         user.setUsername(e.getElementsByTagName("username").item(0).getTextContent());
 
         return user;
     }
+
     
     public void createEvent(Event event) {
         client.target(EVENT_URL + "/create").request().post(Entity.entity(event, "application/xml"));
@@ -137,6 +143,10 @@ public class PersistenceClient {
 
     public void updateEvent(Event event) {
         client.target(EVENT_URL + "/edit/" + event.getEventId()).request().put(Entity.entity(event, "application/xml"));
+    }
+    // to update the event qta
+    public void updateEventQta(Event event) {
+        client.target(EVENT_URL + "/editqta/" + event.getEventId()).request().put(Entity.entity(event, "application/xml"));
     }
 
     public void removeEvent(int id) {
@@ -156,7 +166,7 @@ public class PersistenceClient {
     }
 
     public List<Event> getAllEvents() {
-        return parseEventList(client.target(EVENT_URL).request().get(String.class));
+        return parseEventList(client.target(EVENT_URL+"/findAll").request().get(String.class));
     }
 
     private List<Event> parseEventList(String xml) {
